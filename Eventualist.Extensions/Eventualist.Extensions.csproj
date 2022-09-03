@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Nullable>annotations</Nullable>
+    
+    <Version>2.0.0.8</Version>
+    
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    
+    <Description>A number of simple extensions to bool, and collections. Mainly used for my own website, but you can peruse for your own pleasure.
+- Bool: AddNot (transforms a string according to the value of the bool)
+- Bool: ToYesOrNo (transforms bool to a yes or no)
+-Collection: IsEmpty: returns true if collection is empty
+-Collection: IsNotEmpty: returns true if collection is not empty
+-Collection: returns a list of sublists of the collections, with a specified maximumlength
+
+In 1.0.0.13
+
+- Memoize, to automatically cache function results. Just apply Memoize() to a Function object to get a memoized version. Caveats: it only works for up to two arguments, and it does not much benefit recursive functions.
+
+In 2.0.0.0
+
+- No new functionality but now compatible with .net 6.0. For compatibility with older versions use 1.0.0.19</Description>
+    
+    <Authors>Iede Snoek</Authors>
+    
+    <Company>Esox Solutions</Company>
+    
+    <Copyright>(c) 2022 Esox Solutions</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration) == 'Debug'">
+    <BumpLabel>dev</BumpLabel>
+    <BumpLabelDigits>4</BumpLabelDigits>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration) == 'Release'">
+    <BumpRevision>True</BumpRevision>
+    <BumpResetLabel>dev</BumpResetLabel>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MSBump" Version="2.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
