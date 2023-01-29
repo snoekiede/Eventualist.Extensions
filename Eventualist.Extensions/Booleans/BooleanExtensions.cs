@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Eventualist.Extensions.Booleans
+﻿namespace Eventualist.Extensions.Booleans
 {
     public static class BooleanExtensions
     {

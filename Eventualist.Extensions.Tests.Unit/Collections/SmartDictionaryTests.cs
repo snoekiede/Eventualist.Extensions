@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Eventualist.Extensions.Collections;
 using Xunit;
 
@@ -40,6 +38,33 @@ namespace Eventualist.Extensions.Tests.Unit.Collections
             var dictionary = new ExtendedDictionary<string, int>();
             var retrievedKey = dictionary["me"];
             Assert.Equal(0,retrievedKey);
+        }
+
+        [Fact]
+        public void CanNotSetNullKey()
+        {
+            var dictionary=new ExtendedDictionary<string, int>();
+            Assert.Throws<ArgumentNullException>(() => dictionary[null] = 0);
+        }
+
+        [Fact]
+        public void CanNotGetNullKey()
+        {
+            var dictionary = new ExtendedDictionary<string, int>();
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var temp = dictionary[null];
+            });
+        }
+
+        [Fact]
+        public void CanNotGetNullKeyWithDefaultValue()
+        {
+            var dictionary = new ExtendedDictionary<string, int>();
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var temp = dictionary[null, 0];
+            });
         }
     }
 }

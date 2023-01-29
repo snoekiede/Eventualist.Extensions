@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Eventualist.Extensions.Functions;
 using Xunit;
 namespace Eventualist.Extensions.Tests.Unit.Memoize

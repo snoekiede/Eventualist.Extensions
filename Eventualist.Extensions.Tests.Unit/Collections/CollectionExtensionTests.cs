@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Eventualist.Extensions.Collections;
 using Xunit;
 
@@ -41,7 +39,7 @@ namespace Eventualist.Extensions.Tests.Unit.Collections
         public void TestDivideRegular()
         {
             var list = new List<int> { 1, 2, 3, 4, 5, 6 };
-            var divisions = list.Divide(3).ToList();
+            var divisions = list.Divide().ToList();
             Assert.True(divisions.IsNotEmpty());
             Assert.True(divisions.Count == 2);
             Assert.True(divisions[0].Count() == 3);
@@ -52,12 +50,21 @@ namespace Eventualist.Extensions.Tests.Unit.Collections
         public void TestDivideIrregular()
         {
             var list = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
-            var divisions = list.Divide(3).ToList();
+            var divisions = list.Divide().ToList();
             Assert.True(divisions.IsNotEmpty());
             Assert.True(divisions.Count == 3);
             Assert.True(divisions[0].Count() == 3);
             Assert.True(divisions[1].Count() == 3);
             Assert.True(divisions[2].Count() == 1);
+        }
+
+        [Fact]
+        public void TestCreateOrderedList()
+        {
+            var list = new List<string> { "Mercury", "Venus", "Earth", "Mars" };
+            var resultString = list.CreateOrderedString(x => x);
+            Assert.StartsWith(resultString,"Earth,Mars,Mercury,Venus");
+
         }
     }
 }

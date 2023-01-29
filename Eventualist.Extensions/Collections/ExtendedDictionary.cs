@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Eventualist.Extensions.Collections
 {
@@ -8,14 +7,14 @@ namespace Eventualist.Extensions.Collections
     {
         public V this[K key, V defaultValue]
         {
-            set => base[key] = value;
-            get => !this.ContainsKey(key) ? defaultValue : this[key];
+            set => base[key ?? throw new ArgumentNullException(nameof(key))] = value;
+            get => !this.ContainsKey(key ?? throw new ArgumentNullException(nameof(key))) ? defaultValue : this[key];
         }
 
         public new V this[K key]
         {
-            set => base[key] = value;
-            get => !this.ContainsKey(key) ? default(V) : base[key];
+            set => base[key ?? throw new ArgumentNullException(nameof(key))] = value;
+            get => !this.ContainsKey(key ?? throw new ArgumentNullException(nameof(key))) ? default(V) : base[key];
         }
     }
 }

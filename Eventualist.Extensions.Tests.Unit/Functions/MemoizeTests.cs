@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Eventualist.Extensions.Functions;
 using Xunit;
 
@@ -10,23 +6,23 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
 {
     public class MemoizeTests
     {
-        int noParams() => 42;
-        int oneParam(int first) => first + 42;
-        int twoParams(int first, int second) => first + second;
-        int threeParams(int first, int second, int third) => first + second + third;
-        int fourParams(int first, int second, int third, int fourth) => first + second + third + fourth;
+        int NoParams() => 42;
+        int OneParam(int first) => first + 42;
+        int TwoParams(int first, int second) => first + second;
+        int ThreeParams(int first, int second, int third) => first + second + third;
+        int FourParams(int first, int second, int third, int fourth) => first + second + third + fourth;
 
-        int fiveParams(int first, int second, int third, int fourth, int fifth) =>
+        int FiveParams(int first, int second, int third, int fourth, int fifth) =>
             first + second + third + fourth + fifth;
 
-        int sixParams(int first, int second, int third, int fourth, int fifth, int sixth) =>
+        int SixParams(int first, int second, int third, int fourth, int fifth, int sixth) =>
             first + second + third + fourth + fifth + sixth;
 
         [Fact]
         public void TestNoParams()
         {
 
-            Func<int> testfunction = noParams;
+            Func<int> testfunction = NoParams;
             var memoizeFunction = testfunction.Memoize();
 
             var result = memoizeFunction();
@@ -39,7 +35,7 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
         [Fact]
         public void TestOneParam()
         {
-            Func<int, int> testfunction = oneParam;
+            Func<int, int> testfunction = OneParam;
             var memoizeFunction = testfunction.Memoize();
 
             var result = memoizeFunction(3);
@@ -50,7 +46,7 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
         [Fact]
         public void TestTwoParams()
         {
-            Func<int, int, int> testfunction = twoParams;
+            Func<int, int, int> testfunction = TwoParams;
             var memoizeFunction = testfunction.Memoize();
 
             var result = memoizeFunction(1, 2);
@@ -61,7 +57,7 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
         [Fact]
         public void TestThreeParams()
         {
-            Func<int, int, int, int> testfunction = threeParams;
+            Func<int, int, int, int> testfunction = ThreeParams;
             var memoizeFunction = testfunction.Memoize();
 
             var result = memoizeFunction(1, 2, 3);
@@ -72,7 +68,7 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
         [Fact]
         public void TestFourParams()
         {
-            Func<int, int, int, int, int> testfunction = fourParams;
+            Func<int, int, int, int, int> testfunction = FourParams;
             var memoizeFunction = testfunction.Memoize();
 
             var result = memoizeFunction(1, 2, 3, 4);
@@ -83,7 +79,7 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
         [Fact]
         public void TestFiveParams()
         {
-            Func<int, int, int, int, int, int> testfunction = fiveParams;
+            Func<int, int, int, int, int, int> testfunction = FiveParams;
             var memoizeFunction = testfunction.Memoize();
 
             var result = memoizeFunction(1, 2, 3, 4, 5);
@@ -94,7 +90,7 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
         [Fact]
         public void TestSixParams()
         {
-            Func<int, int, int, int, int, int, int> testfunction = sixParams;
+            Func<int, int, int, int, int, int, int> testfunction = SixParams;
             var memoizeFunction = testfunction.Memoize();
 
             var result = memoizeFunction(1, 2, 3, 4, 5, 6);

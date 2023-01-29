@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Eventualist.Extensions.Strings
@@ -34,7 +33,7 @@ namespace Eventualist.Extensions.Strings
         /// <returns>true if it has an allowed extension, false otherwise</returns>
         public static bool HasCorrectExtension(this string filename)
         {
-            var allowedExtensions = new[] { "png", "jpg", "jpeg" };
+            var allowedExtensions = new[] { "png", "jpg", "jpeg","gif" };
             if (string.IsNullOrEmpty(filename))
             {
                 return false;
@@ -64,6 +63,7 @@ namespace Eventualist.Extensions.Strings
                 case ".png": return "image/png";
                 case ".jpg": return "image/jpeg";
                 case ".jpeg": return "image/jpeg";
+                case ".gif": return "image/gif";
                 default: return "unknown";
             }
         }
