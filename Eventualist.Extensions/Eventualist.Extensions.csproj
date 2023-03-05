@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Nullable>annotations</Nullable>
     
-    <Version>2.0.0.15</Version>
+    <Version>2.0.0.16</Version>
     
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     

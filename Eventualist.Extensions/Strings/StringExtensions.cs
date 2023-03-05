@@ -139,7 +139,7 @@ namespace Eventualist.Extensions.Strings
                         break;
                     }
                 }
-
+                wordList.Add(abbreviationSymbol);
                 return string.Join(" ", wordList);
             }
         }

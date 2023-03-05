@@ -1,4 +1,4 @@
-﻿# eventualistextensions
+﻿# Eventualist.Extensions
 This package contains some small but handy extension methods
 
 
