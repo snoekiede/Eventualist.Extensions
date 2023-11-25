@@ -28,3 +28,4 @@ A number of simple extensions to bool, and collections. Mainly used for my own w
 ## In 3.0.0.9
 
 - Update to .NET 8
+
