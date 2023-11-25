@@ -2,16 +2,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Nullable>annotations</Nullable>
     
-    <Version>2.0.0.16</Version>
+    <Version>3.0.0.9</Version>
     
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>A number of simple extensions to bool, and collections. Mainly used for my own website, but you can peruse for your own pleasure.
 - Bool: AddNot (transforms a string according to the value of the bool)
 - Bool: ToYesOrNo (transforms bool to a yes or no)
@@ -47,6 +47,9 @@ In 2.0.0.0
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
