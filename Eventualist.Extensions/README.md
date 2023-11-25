@@ -29,3 +29,17 @@ A number of simple extensions to bool, and collections. Mainly used for my own w
 
 - Update to .NET 8
 
+## In 3.0.0.17
+- Added the `MustComeBefore` attribute to make sure dates in your model are always in the right order.
+
+An example use of this would be:
+```
+    internal class TimePeriod
+    {
+        [MustComeBefore("EndDate")]
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+    }
+```
+
+This attribute works with the standard .NET validators.
