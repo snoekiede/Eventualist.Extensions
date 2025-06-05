@@ -1,71 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eventualist.Extensions.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property,AllowMultiple = false)]
-    public class MustComeBeforeAttribute:ValidationAttribute
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    public class MustComeBeforeAttribute : ValidationAttribute
     {
-        public string OtherProperty { get; private set; }
+        public string OtherProperty { get; }
 
-
-        public MustComeBeforeAttribute(string otherProperty) : base("Must match")
+        public MustComeBeforeAttribute(string otherProperty) 
+            : base($"Must occur before {otherProperty}")
         {
-            if (string.IsNullOrEmpty(otherProperty))
-            {
-                throw new ArgumentNullException("otherProperty");
-            }
-
-            this.OtherProperty=otherProperty;
+            OtherProperty = otherProperty ?? throw new ArgumentNullException(nameof(otherProperty));
         }
 
-        public override bool RequiresValidationContext
+        public override bool RequiresValidationContext => true;
+
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            get
+
+            if (value is null)
             {
-                return true;
+                return ValidationResult.Success!;
             }
+
+
+            PropertyInfo? otherPropertyInfo = validationContext.ObjectType.GetProperty(OtherProperty);
+            if (otherPropertyInfo is null)
+            {
+                return new ValidationResult($"Unknown property: {OtherProperty}");
+            }
+
+            if (!typeof(DateTime).IsAssignableFrom(otherPropertyInfo.PropertyType))
+            {
+                return new ValidationResult($"Property {OtherProperty} is not a DateTime type");
+            }
+
+            if (value is not DateTime currentDateTime)
+            {
+                return new ValidationResult("Current property is not a DateTime type");
+            }
+
+            object? otherValue = otherPropertyInfo.GetValue(validationContext.ObjectInstance);
+            if (otherValue is null)
+            {
+                return ValidationResult.Success!; // If other value is null, we can't compare, so it's valid
+            }
+
+            DateTime otherDateTime = (DateTime)otherValue;
+            
+            return currentDateTime < otherDateTime
+                ? ValidationResult.Success!
+                : new ValidationResult($"This date must occur before {OtherProperty}");
         }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            PropertyInfo otherPropertyInfo = validationContext.ObjectType.GetProperty(this.OtherProperty);
-
-            if (otherPropertyInfo == null)
-            {
-                return new ValidationResult($"Unknown property: {this.OtherProperty}");
-            }
-
-            try
-            {
-                DateTime otherPropertyValue =
-                    (DateTime)otherPropertyInfo.GetValue(validationContext.ObjectInstance, null);
-                if (otherPropertyValue == null)
-                {
-                    return new ValidationResult($"{this.OtherProperty} not of type DateTime");
-                }
-
-                var currentDateTime = (DateTime)value;
-                if (currentDateTime < otherPropertyValue)
-                {
-                    return ValidationResult.Success;
-                }
-                else
-                {
-                    return new ValidationResult("Dates are in reverse");
-                }
-            }
-            catch (Exception e)
-            {
-                return new ValidationResult($"Exception: {e.Message}");
-            }
-
-        }
-
     }
 }
