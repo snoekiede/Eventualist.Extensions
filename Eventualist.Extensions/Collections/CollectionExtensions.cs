@@ -4,83 +4,119 @@ using System.Linq;
 
 namespace Eventualist.Extensions.Collections
 {
+    /// <summary>
+    /// Extension methods for collections and enumerables
+    /// </summary>
     public static class CollectionExtensions
     {
         /// <summary>
-        /// Returns true if the list is empty
+        /// Returns true if the collection is empty
         /// </summary>
-        /// <typeparam name="T">the type of the collection</typeparam>
-        /// <param name="list">the underlying collection</param>
-        /// <returns>true if empty, false otherwise</returns>
-        public static bool IsEmpty<T>(this IEnumerable<T> list)
+        /// <typeparam name="T">The type of the collection elements</typeparam>
+        /// <param name="collection">The collection to check</param>
+        /// <returns>True if empty, false otherwise</returns>
+        /// <exception cref="ArgumentNullException">Thrown when collection is null</exception>
+        public static bool IsEmpty<T>(this IEnumerable<T> collection)
         {
-            return !list.Any();
+            ArgumentNullException.ThrowIfNull(collection);
+            return !collection.Any();
         }
 
         /// <summary>
-        /// Returns true if list is not empty, 
+        /// Returns true if the collection is not empty
         /// </summary>
-        /// <typeparam name="T">the type of the collection</typeparam>
-        /// <param name="list">the underlying collection</param>
-        /// <returns>true if not empty, false otherwise</returns>
-        public static bool IsNotEmpty<T>(this IEnumerable<T> list)
+        /// <typeparam name="T">The type of the collection elements</typeparam>
+        /// <param name="collection">The collection to check</param>
+        /// <returns>True if not empty, false otherwise</returns>
+        /// <exception cref="ArgumentNullException">Thrown when collection is null</exception>
+        public static bool IsNotEmpty<T>(this IEnumerable<T> collection)
         {
-            return list.Any();
+            ArgumentNullException.ThrowIfNull(collection);
+            return collection.Any();
         }
+
         /// <summary>
-        /// Creates an ordered string separated by separator
+        /// Creates an ordered string with elements separated by the specified separator
         /// </summary>
-        /// <typeparam name="T">the type of the collection</typeparam>
-        /// <typeparam name="TKey">the key to be used</typeparam>
-        /// <param name="list">the underlying collection</param>
-        /// <param name="keyselector">the selector used for the key</param>
-        /// <param name="separator">the separator to be used</param>
-        /// <returns>an ordered string</returns>
-        public static string CreateOrderedString<T, TKey>(this IEnumerable<T> list, Func<T, TKey> keyselector, string separator = ",")
+        /// <typeparam name="T">The type of the collection elements</typeparam>
+        /// <typeparam name="TKey">The type of the sorting key</typeparam>
+        /// <param name="collection">The collection to order and join</param>
+        /// <param name="keySelector">The selector used for the key</param>
+        /// <param name="separator">The separator to use between elements</param>
+        /// <param name="elementStringSelector">Optional function to convert each element to string</param>
+        /// <returns>An ordered string of collection elements</returns>
+        /// <exception cref="ArgumentNullException">Thrown when collection or keySelector is null</exception>
+        public static string CreateOrderedString<T, TKey>(
+            this IEnumerable<T> collection, 
+            Func<T, TKey> keySelector, 
+            string separator = ",",
+            Func<T, string>? elementStringSelector = null)
         {
-            var orderedList = list.OrderBy(keyselector).AsEnumerable();
+            ArgumentNullException.ThrowIfNull(collection);
+            ArgumentNullException.ThrowIfNull(keySelector);
+            
+            var orderedList = collection.OrderBy(keySelector);
+            
+            if (elementStringSelector != null)
+            {
+                return string.Join(separator, orderedList.Select(elementStringSelector));
+            }
+            
             return string.Join(separator, orderedList);
         }
 
         /// <summary>
-        /// Divides a collection into a number of collection maxlength groupSize
+        /// Divides a collection into groups of specified size
         /// </summary>
-        /// <typeparam name="T">the type of the collection</typeparam>
-        /// <param name="list">the underlying collection</param>
-        /// <param name="groupSize">the max length of resulting collections</param>
-        /// <returns>a collection of collections</returns>
-        public static IEnumerable<IEnumerable<T>> Divide<T>(this IEnumerable<T> list, int groupSize = 3)
+        /// <typeparam name="T">The type of the collection elements</typeparam>
+        /// <param name="collection">The collection to divide</param>
+        /// <param name="groupSize">The maximum size of each group</param>
+        /// <returns>A collection of collection groups</returns>
+        /// <exception cref="ArgumentNullException">Thrown when collection is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when groupSize is less than 1</exception>
+        public static IEnumerable<IEnumerable<T>> Divide<T>(this IEnumerable<T> collection, int groupSize = 3)
         {
-            if (groupSize == 0)
+            ArgumentNullException.ThrowIfNull(collection);
+            
+            if (groupSize < 1)
             {
-                throw new Exception("Cannot make groups of size zero");
-            }
-            List<List<T>> result = new List<List<T>>();
-            int itemCounter = 1;
-            List<T> temp = new List<T>();
-            foreach (var element in list)
-            {
-                if (itemCounter % groupSize == 0)
-                {
-                    temp.Add(element);
-                    result.Add(temp);
-                    temp = new List<T>();
-                    itemCounter++;
-                }
-                else
-                {
-                    temp.Add(element);
-                    itemCounter++;
-                }
+                throw new ArgumentOutOfRangeException(nameof(groupSize), "Group size must be at least 1");
             }
 
-            if (temp.IsNotEmpty())
-            {
-                result.Add(temp);
-            }
-
-
-            return result.AsEnumerable();
+#if NET6_0_OR_GREATER
+            // Use built-in Chunk method if available
+            return collection.Chunk(groupSize);
+#else
+            // Manual implementation for older frameworks
+            return DivideImplementation(collection, groupSize);
+#endif
         }
+
+#if !NET6_0_OR_GREATER
+        private static IEnumerable<IEnumerable<T>> DivideImplementation<T>(IEnumerable<T> collection, int groupSize)
+        {
+            var currentGroup = new List<T>(groupSize);
+            
+            foreach (var item in collection)
+            {
+                currentGroup.Add(item);
+                
+                if (currentGroup.Count == groupSize)
+                {
+                    yield return currentGroup;
+                    currentGroup = new List<T>(groupSize);
+                }
+            }
+            
+            if (currentGroup.Count > 0)
+            {
+                yield return currentGroup;
+            }
+        }
+#endif
+
+
+
+
     }
 }

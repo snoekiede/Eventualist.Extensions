@@ -32,6 +32,19 @@ A number of simple extensions to bool, and collections. Mainly used for my own w
 ## In 3.0.0.17
 - Added the `MustComeBefore` attribute to make sure dates in your model are always in the right order.
 
+## In 4.0.0.0
+- Updated to .NET 9.0
+- Added the `MustComeBefore` attribute to make sure dates in your model are always in the right order. This is useful for validating that a start date comes before an end date, for example.
+- Updated the `ExtendedDictionary` to make it more performant and thread-safe.
+- The `ConvertToMimeType` now handles a greater range of possibilities.
+- The `HasCorrectExtension` method has been improved to handle more file types and extensions.
+- The `Titleize` method has been improved to handle more edge cases and provide better title formatting.
+- So has the `Abbreviate` method, which now handles more complex cases and provides better abbreviation results.
+- The `Truncate` has been added which does not respect word boundaries, allowing for more precise truncation of strings.
+- A `StripHtml` method has been added to remove HTML tags from strings, making it easier to work with plain text.
+- Plus three small utility methods.
+
+
 An example use of this would be:
 ```
     internal class TimePeriod
