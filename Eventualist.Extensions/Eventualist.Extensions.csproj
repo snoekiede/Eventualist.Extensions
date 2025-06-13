@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Nullable>annotations</Nullable>
     
-    <Version>4.0.0.3</Version>
+    <Version>4.0.0.3-dev0011</Version>
     
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     
@@ -43,6 +43,7 @@ In 2.0.0.0
     <BumpResetLabel>dev</BumpResetLabel>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AspectInjector" Version="2.8.2" />
     <PackageReference Include="MSBump" Version="2.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
