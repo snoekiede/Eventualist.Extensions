@@ -1,58 +1,148 @@
 ﻿# Eventualist.Extensions
-This package contains some small but handy extension methods
 
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)](https://dotnet.microsoft.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A number of simple extensions to bool, and collections. Mainly used for my own website, but you can peruse for your own pleasure.
-* Bool: AddNot (transforms a string according to the value of the bool)
-* Bool: ToYesOrNo (transforms bool to a yes or no)
-* Collection: IsEmpty: returns true if collection is empty
-* Collection: IsNotEmpty: returns true if collection is not empty
-* Collection Divide: returns a list of sublists of the collections, with a specified maximumlength
+A collection of lightweight, focused extension methods for common .NET types. Originally created for personal projects but available for anyone to use.
 
-## In 1.0.0.13
+## ⚠️ Disclaimer
 
-- Memoize, to automatically cache function results. Just apply Memoize() to a Function object to get a memoized version. Caveats: it only works for up to two arguments, and it does not much benefit recursive functions.
+This library is primarily developed for personal use and experimentation. While it is publicly available and contributions are welcome, please note:
 
-## In 2.0.0.0
+- **No Warranty**: This software is provided "as is", without warranty of any kind, express or implied
+- **Use at Your Own Risk**: The library may contain bugs or incomplete features
+- **Breaking Changes**: API changes may occur between versions without extensive deprecation notices
+- **Limited Support**: Support and maintenance are provided on a best-effort basis
+- **Experimental Features**: Some features may be experimental, especially those targeting preview versions of .NET
 
-- No new functionality but now compatible with .net 6.0. For compatibility with older versions use 1.0.0.19</Description>
-    
-## In 2.0.0.9
+For production use, please thoroughly test the library in your specific context and consider pinning to a specific version.
 
-- Added new functionality for Memoize: up to six arguments are now supported
+## Features
 
-## In 2.0.0.15
+### Boolean Extensions
+- **`AddNot(string text, string negation = "not ")`** - Conditionally prefixes a string with a negation word based on the boolean value
+  ```csharp
+  false.AddNot("implemented") // Returns "not implemented"
+  true.AddNot("implemented")  // Returns "implemented"
+  ```
+- **`ToYesOrNo(string yes = "yes", string no = "no", string unknown = "unknown")`** - Converts boolean to yes/no strings (supports nullable booleans)
+  ```csharp
+  true.ToYesOrNo()   // Returns "yes"
+  false.ToYesOrNo()  // Returns "no"
+  ((bool?)null).ToYesOrNo() // Returns "unknown"
+  ```
 
-- Updated to .NET 7. Added extra unit tests and null safety checks
+### Collection Extensions
+- **`IsEmpty<T>()`** - Returns true if the collection is empty
+- **`IsNotEmpty<T>()`** - Returns true if the collection contains any elements
+- **`Divide<T>(int maxLength)`** - Splits a collection into sublists with a specified maximum length
+  ```csharp
+  var numbers = new[] { 1, 2, 3, 4, 5, 6, 7 };
+  var chunks = numbers.Divide(3); // Returns [[1,2,3], [4,5,6], [7]]
+  ```
 
-## In 3.0.0.9
+### String Extensions
+- **`Titleize()`** - Converts a string to title case
+- **`Abbreviate(int maxLength)`** - Shortens a string to a maximum length with ellipsis
+- **`Truncate(int maxLength)`** - Truncates a string to a maximum length
+- **`StripHtml()`** - Removes HTML tags from a string
+- **`HasCorrectExtension(string expectedExtension)`** - Validates file extension
+- **`ConvertToMimeType()`** - Converts file extension to MIME type
 
-- Update to .NET 8
+### DateTime Extensions & Validation
+- **`MustComeBefore` Attribute** - Validation attribute to ensure one DateTime property precedes another
+  ```csharp
+  public class TimePeriod
+  {
+      [MustComeBefore("EndDate")]
+      public DateTime StartDate { get; set; }
+      public DateTime EndDate { get; set; }
+  }
+  ```
 
-## In 3.0.0.17
-- Added the `MustComeBefore` attribute to make sure dates in your model are always in the right order.
+### Function Memoization
+- **`Memoize()`** - Automatically caches function results for improved performance
+  ```csharp
+  Func<int, int> expensiveOperation = x => { /* ... */ };
+  var memoized = expensiveOperation.Memoize();
+  // First call computes and caches result
+  var result1 = memoized(5);
+  // Subsequent calls with same input return cached result
+  var result2 = memoized(5); // Instant return from cache
+  ```
+  - Supports functions with up to two arguments
+  - Note: Not optimized for recursive functions
 
-## In 4.0.0.0
-- Updated to .NET 9.0
-- Added the `MustComeBefore` attribute to make sure dates in your model are always in the right order. This is useful for validating that a start date comes before an end date, for example.
-- Updated the `ExtendedDictionary` to make it more performant and thread-safe.
-- The `ConvertToMimeType` now handles a greater range of possibilities.
-- The `HasCorrectExtension` method has been improved to handle more file types and extensions.
-- The `Titleize` method has been improved to handle more edge cases and provide better title formatting.
-- So has the `Abbreviate` method, which now handles more complex cases and provides better abbreviation results.
-- The `Truncate` has been added which does not respect word boundaries, allowing for more precise truncation of strings.
-- A `StripHtml` method has been added to remove HTML tags from strings, making it easier to work with plain text.
-- Plus three small utility methods.
+### ExtendedDictionary
+- Thread-safe dictionary implementation with improved performance characteristics
 
+## Installation
 
-An example use of this would be:
+Add the package reference to your project:
+
+```xml
+<PackageReference Include="Eventualist.Extensions" Version="4.0.0.3-dev0004" />
 ```
-    internal class TimePeriod
-    {
-        [MustComeBefore("EndDate")]
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-    }
+
+Or via the .NET CLI:
+
+```bash
+dotnet add package Eventualist.Extensions
 ```
 
-This attribute works with the standard .NET validators.
+## Compatibility
+
+- **Target Framework**: .NET 10.0 (net10.0)
+- **C# Language Version**: 14.0
+- **License**: MIT
+
+## Version History
+
+- **4.0.0.3-dev0004**: Updated to .NET 10 and C# 14, refreshed CI workflow
+- **3.x**: Updates for .NET 9 compatibility
+- **2.0.0.0**: .NET 6.0 compatibility (use version 1.0.0.19 for older frameworks)
+- **1.0.0.13**: Added Memoize functionality
+- **1.0.0.0**: Initial release with Bool and Collection extensions
+
+## Building and Testing
+
+The project includes a GitHub Actions CI workflow (`.github/workflows/dotnet.yml`) that automatically:
+- Restores NuGet packages
+- Builds the solution using .NET 10 SDK
+- Runs all unit tests
+
+### Local Development
+
+```bash
+# Restore dependencies
+dotnet restore
+
+# Build the solution
+dotnet build
+
+# Run tests
+dotnet test
+
+# Create NuGet package
+dotnet pack
+```
+
+## Contributing
+
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Run `dotnet test` locally to ensure all tests pass
+4. Submit a pull request
+
+## Author
+
+**Iede Snoek**  
+Email: info@esoxsolutions.nl  
+Company: Esox Solutions
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Copyright (c) 2022-2025 Esox Solutions
