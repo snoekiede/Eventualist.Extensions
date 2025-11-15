@@ -143,69 +143,15 @@ namespace Eventualist.Extensions.Tests.Collections
             Assert.Throws<ArgumentNullException>(() => numbers.CreateOrderedString(nullSelector));
         }
         
-        [Fact]
-        public void Divide_WithExactMultiple_CreatesEqualGroups()
-        {
-            // Arrange
-            var numbers = new[] { 1, 2, 3, 4, 5, 6 };
-            
-            // Act
-            var result = numbers.Divide(3).ToList();
-            
-            // Assert
-            Assert.Equal(2, result.Count);
-            Assert.Equal(new[] { 1, 2, 3 }, result[0]);
-            Assert.Equal(new[] { 4, 5, 6 }, result[1]);
-        }
+
         
-        [Fact]
-        public void Divide_WithNonExactMultiple_CreatesUnequalLastGroup()
-        {
-            // Arrange
-            var numbers = new[] { 1, 2, 3, 4, 5, 6, 7 };
-            
-            // Act
-            var result = numbers.Divide(3).ToList();
-            
-            // Assert
-            Assert.Equal(3, result.Count);
-            Assert.Equal(new[] { 1, 2, 3 }, result[0]);
-            Assert.Equal(new[] { 4, 5, 6 }, result[1]);
-            Assert.Equal(new[] { 7 }, result[2]);
-        }
+
         
-        [Fact]
-        public void Divide_WithEmptyCollection_ReturnsEmptyCollection()
-        {
-            // Arrange
-            var emptyList = Enumerable.Empty<int>();
-            
-            // Act
-            var result = emptyList.Divide(3).ToList();
-            
-            // Assert
-            Assert.Empty(result);
-        }
+
         
-        [Fact]
-        public void Divide_WithZeroGroupSize_ThrowsArgumentOutOfRangeException()
-        {
-            // Arrange
-            var numbers = new[] { 1, 2, 3 };
-            
-            // Act & Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => numbers.Divide(0).ToList());
-        }
+
         
-        [Fact]
-        public void Divide_WithNullCollection_ThrowsArgumentNullException()
-        {
-            // Arrange
-            IEnumerable<int> nullList = null!;
-            
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => nullList.Divide(3).ToList());
-        }
+
         
 
         

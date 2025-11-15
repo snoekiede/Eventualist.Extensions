@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -223,9 +222,9 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
         public void TestCompose()
         {
             Func<int, int> addFive = x => x + 5;
-            Func<int, string> toString = x => $"Number: {x}";
+            string Func(int x) => $"Number: {x}";
 
-            var composed = addFive.Compose(toString);
+            var composed = addFive.Compose((Func<int, string>)Func);
 
             var result = composed(10);
             Assert.Equal("Number: 15", result);
@@ -237,9 +236,9 @@ namespace Eventualist.Extensions.Tests.Unit.Functions
             ResetCallCount();
 
             Func<int, int> addFive = x => { _callCount++; return x + 5; };
-            Func<int, string> toString = x => $"Number: {x}";
+            string S(int x) => $"Number: {x}";
 
-            var composed = addFive.Compose(toString);
+            var composed = addFive.Compose((Func<int, string>)S);
             var memoized = composed.Memoize();
 
             // First call

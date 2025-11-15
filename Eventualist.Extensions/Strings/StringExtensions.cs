@@ -204,7 +204,7 @@ namespace Eventualist.Extensions.Strings
 
                 // Improved regex that handles acronyms and numbers better
                 return Regex.Replace(text,
-                    @"(?<!^)(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])",
+                    "(?<!^)(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])",
                     " ");
             }
 
@@ -319,16 +319,10 @@ namespace Eventualist.Extensions.Strings
                 // Calculate how many characters to take from the original string
                 int truncateLength;
 
-                if (isEnclosedSuffix)
-                {
-                    // For bracketed suffixes, allow an extra character
-                    truncateLength = Math.Max(0, maxLength - suffix.Length + 1);
-                }
-                else
-                {
+                // For bracketed suffixes, allow an extra character
+                truncateLength = isEnclosedSuffix ? Math.Max(0, maxLength - suffix.Length + 1) :
                     // Standard calculation for regular suffixes
-                    truncateLength = Math.Max(0, maxLength - suffix.Length);
-                }
+                    Math.Max(0, maxLength - suffix.Length);
 
                 // Make sure we don't go beyond the string length
                 truncateLength = Math.Min(truncateLength, text.Length);
