@@ -1,37 +1,148 @@
 ﻿# Eventualist.Extensions
 
-Small, focused extension methods for common .NET types.
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)](https://dotnet.microsoft.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Features
-- Bool helpers: `AddNot`, `ToYesOrNo`.
-- Collection helpers: `IsEmpty`, `IsNotEmpty`, `Divide` (split a collection into sublists of a given maximum length).
-- String helpers: `Titleize`, `Abbreviate`, `Truncate`, `StripHtml`, `HasCorrectExtension`, `ConvertToMimeType`.
-- Date helpers and validation: `MustComeBefore` attribute to ensure one `DateTime` property precedes another.
-- Function memoization: `Memoize` with multi-argument support.
-- `ExtendedDictionary`: improved performance and thread-safety.
+A collection of lightweight, focused extension methods for common .NET types. Originally created for personal projects but available for anyone to use.
 
-Compatibility
-- Target framework: .NET 10 (net10.0)
+## ⚠️ Disclaimer
 
-Recent changes
-- 4.0.0.3-dev0004: Updated to .NET 10 and refreshed CI workflow.
-- Previous: updates for .NET 9/8/7 and enhancements to memoization, string utilities, and validation attributes.
+This library is primarily developed for personal use and experimentation. While it is publicly available and contributions are welcome, please note:
 
-Usage example
-```csharp
-internal class TimePeriod
-{
-    [MustComeBefore("EndDate")]
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-}
+- **No Warranty**: This software is provided "as is", without warranty of any kind, express or implied
+- **Use at Your Own Risk**: The library may contain bugs or incomplete features
+- **Breaking Changes**: API changes may occur between versions without extensive deprecation notices
+- **Limited Support**: Support and maintenance are provided on a best-effort basis
+- **Experimental Features**: Some features may be experimental, especially those targeting preview versions of .NET
+
+For production use, please thoroughly test the library in your specific context and consider pinning to a specific version.
+
+## Features
+
+### Boolean Extensions
+- **`AddNot(string text, string negation = "not ")`** - Conditionally prefixes a string with a negation word based on the boolean value
+  ```csharp
+  false.AddNot("implemented") // Returns "not implemented"
+  true.AddNot("implemented")  // Returns "implemented"
+  ```
+- **`ToYesOrNo(string yes = "yes", string no = "no", string unknown = "unknown")`** - Converts boolean to yes/no strings (supports nullable booleans)
+  ```csharp
+  true.ToYesOrNo()   // Returns "yes"
+  false.ToYesOrNo()  // Returns "no"
+  ((bool?)null).ToYesOrNo() // Returns "unknown"
+  ```
+
+### Collection Extensions
+- **`IsEmpty<T>()`** - Returns true if the collection is empty
+- **`IsNotEmpty<T>()`** - Returns true if the collection contains any elements
+- **`Divide<T>(int maxLength)`** - Splits a collection into sublists with a specified maximum length
+  ```csharp
+  var numbers = new[] { 1, 2, 3, 4, 5, 6, 7 };
+  var chunks = numbers.Divide(3); // Returns [[1,2,3], [4,5,6], [7]]
+  ```
+
+### String Extensions
+- **`Titleize()`** - Converts a string to title case
+- **`Abbreviate(int maxLength)`** - Shortens a string to a maximum length with ellipsis
+- **`Truncate(int maxLength)`** - Truncates a string to a maximum length
+- **`StripHtml()`** - Removes HTML tags from a string
+- **`HasCorrectExtension(string expectedExtension)`** - Validates file extension
+- **`ConvertToMimeType()`** - Converts file extension to MIME type
+
+### DateTime Extensions & Validation
+- **`MustComeBefore` Attribute** - Validation attribute to ensure one DateTime property precedes another
+  ```csharp
+  public class TimePeriod
+  {
+      [MustComeBefore("EndDate")]
+      public DateTime StartDate { get; set; }
+      public DateTime EndDate { get; set; }
+  }
+  ```
+
+### Function Memoization
+- **`Memoize()`** - Automatically caches function results for improved performance
+  ```csharp
+  Func<int, int> expensiveOperation = x => { /* ... */ };
+  var memoized = expensiveOperation.Memoize();
+  // First call computes and caches result
+  var result1 = memoized(5);
+  // Subsequent calls with same input return cached result
+  var result2 = memoized(5); // Instant return from cache
+  ```
+  - Supports functions with up to two arguments
+  - Note: Not optimized for recursive functions
+
+### ExtendedDictionary
+- Thread-safe dictionary implementation with improved performance characteristics
+
+## Installation
+
+Add the package reference to your project:
+
+```xml
+<PackageReference Include="Eventualist.Extensions" Version="4.0.0.3-dev0004" />
 ```
 
-Building and CI
-- A GitHub Actions workflow is included at `.github/workflows/dotnet.yml` which restores, builds and tests using the .NET 10 SDK.
+Or via the .NET CLI:
 
-Contributing
-- Pull requests are welcome. Please run `dotnet test` locally and ensure all tests pass.
+```bash
+dotnet add package Eventualist.Extensions
+```
 
-License
-- MIT
+## Compatibility
+
+- **Target Framework**: .NET 10.0 (net10.0)
+- **C# Language Version**: 14.0
+- **License**: MIT
+
+## Version History
+
+- **4.0.0.3-dev0004**: Updated to .NET 10 and C# 14, refreshed CI workflow
+- **3.x**: Updates for .NET 9 compatibility
+- **2.0.0.0**: .NET 6.0 compatibility (use version 1.0.0.19 for older frameworks)
+- **1.0.0.13**: Added Memoize functionality
+- **1.0.0.0**: Initial release with Bool and Collection extensions
+
+## Building and Testing
+
+The project includes a GitHub Actions CI workflow (`.github/workflows/dotnet.yml`) that automatically:
+- Restores NuGet packages
+- Builds the solution using .NET 10 SDK
+- Runs all unit tests
+
+### Local Development
+
+```bash
+# Restore dependencies
+dotnet restore
+
+# Build the solution
+dotnet build
+
+# Run tests
+dotnet test
+
+# Create NuGet package
+dotnet pack
+```
+
+## Contributing
+
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Run `dotnet test` locally to ensure all tests pass
+4. Submit a pull request
+
+## Author
+
+**Iede Snoek**  
+Email: info@esoxsolutions.nl  
+Company: Esox Solutions
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Copyright (c) 2022-2025 Esox Solutions
