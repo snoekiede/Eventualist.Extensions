@@ -13,7 +13,6 @@ namespace Eventualist.Extensions.Datetimes
             /// <summary>
             /// Formats date for the datepicker in yyyy/MM/dd format
             /// </summary>
-            /// <param name="date">The underlying date</param>
             /// <param name="culture">Optional culture for formatting (uses current culture if not specified)</param>
             /// <returns>A formatted string</returns>
             public string FormatDateForPicker(CultureInfo? culture = null)

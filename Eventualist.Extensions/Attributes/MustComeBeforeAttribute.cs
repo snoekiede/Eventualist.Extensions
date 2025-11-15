@@ -5,15 +5,10 @@ using System.Reflection;
 namespace Eventualist.Extensions.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class MustComeBeforeAttribute : ValidationAttribute
+    public class MustComeBeforeAttribute(string otherProperty)
+        : ValidationAttribute($"Must occur before {otherProperty}")
     {
-        public string OtherProperty { get; }
-
-        public MustComeBeforeAttribute(string otherProperty) 
-            : base($"Must occur before {otherProperty}")
-        {
-            OtherProperty = otherProperty ?? throw new ArgumentNullException(nameof(otherProperty));
-        }
+        public string OtherProperty { get; } = otherProperty ?? throw new ArgumentNullException(nameof(otherProperty));
 
         public override bool RequiresValidationContext => true;
 

@@ -16,7 +16,6 @@ namespace Eventualist.Extensions.Functions
             /// Creates a memoized version of a parameterless function that caches its result
             /// </summary>
             /// <typeparam name="TResult">The return type of the function</typeparam>
-            /// <param name="function">The function to memoize</param>
             /// <returns>A memoized version of the function</returns>
             /// <exception cref="ArgumentNullException">Thrown when function is null</exception>
             public Func<TResult> Memoize()
@@ -34,7 +33,6 @@ namespace Eventualist.Extensions.Functions
             /// <summary>
             /// Creates a memoized version of a function with one parameter
             /// </summary>
-            /// <param name="function">The function to memoize</param>
             /// <param name="comparer">Optional custom equality comparer for the parameter</param>
             /// <returns>A memoized version of the function</returns>
             /// <exception cref="ArgumentNullException">Thrown when function is null</exception>
@@ -57,7 +55,6 @@ namespace Eventualist.Extensions.Functions
             /// <summary>
             /// Creates a memoized function that will cache results for a limited time
             /// </summary>
-            /// <param name="function">The function to memoize</param>
             /// <param name="expiration">The time period after which cached values expire</param>
             /// <returns>A time-limited memoized version of the function</returns>
             public Func<TParam, TResult> MemoizeWithExpiration(TimeSpan expiration)
@@ -215,7 +212,6 @@ namespace Eventualist.Extensions.Functions
             /// <summary>
             /// Composes two functions, passing the result of the first to the second
             /// </summary>
-            /// <param name="first">The first function to apply</param>
             /// <param name="second">The second function to apply to the result of the first</param>
             /// <returns>A composed function</returns>
             public Func<TParam, TResult> Compose<TResult>(Func<TIntermediate, TResult> second)

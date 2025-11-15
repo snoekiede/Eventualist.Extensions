@@ -26,9 +26,11 @@ namespace Eventualist.Extensions.Tests.Collections
             var comparer = StringComparer.OrdinalIgnoreCase;
             
             // Act
-            var dictionary = new ExtendedDictionary<string, int>(comparer);
-            dictionary["Key"] = 1;
-            
+            var dictionary = new ExtendedDictionary<string, int>(comparer)
+            {
+                ["Key"] = 1
+            };
+
             // Assert
             Assert.Equal(1, dictionary["key"]); // Should find case-insensitive
         }
@@ -69,9 +71,11 @@ namespace Eventualist.Extensions.Tests.Collections
             var comparer = StringComparer.OrdinalIgnoreCase;
             
             // Act
-            var dictionary = new ExtendedDictionary<string, int>(10, comparer);
-            dictionary["Key"] = 1;
-            
+            var dictionary = new ExtendedDictionary<string, int>(10, comparer)
+            {
+                ["Key"] = 1
+            };
+
             // Assert
             Assert.Equal(1, dictionary["key"]); // Should find case-insensitive
         }
@@ -127,11 +131,12 @@ namespace Eventualist.Extensions.Tests.Collections
         public void StandardIndexer_SetNewKey_AddsValue()
         {
             // Arrange
-            var dictionary = new ExtendedDictionary<string, int>();
-            
-            // Act
-            dictionary["new"] = 100;
-            
+            var dictionary = new ExtendedDictionary<string, int>
+            {
+                // Act
+                ["new"] = 100
+            };
+
             // Assert
             Assert.Equal(100, dictionary["new"]);
             Assert.Single(dictionary);
@@ -141,11 +146,12 @@ namespace Eventualist.Extensions.Tests.Collections
         public void StandardIndexer_SetExistingKey_UpdatesValue()
         {
             // Arrange
-            var dictionary = new ExtendedDictionary<string, int> { ["key"] = 42 };
-            
-            // Act
-            dictionary["key"] = 100;
-            
+            var dictionary = new ExtendedDictionary<string, int>
+            {
+                ["key"] = 42,
+                ["key"] = 100
+            };
+
             // Assert
             Assert.Equal(100, dictionary["key"]);
             Assert.Single(dictionary);
@@ -185,11 +191,12 @@ namespace Eventualist.Extensions.Tests.Collections
         public void DefaultValueIndexer_SetNewKey_AddsValue()
         {
             // Arrange
-            var dictionary = new ExtendedDictionary<string, int>();
-            
-            // Act
-            dictionary["new", 999] = 100;
-            
+            var dictionary = new ExtendedDictionary<string, int>
+            {
+                // Act
+                ["new", 999] = 100
+            };
+
             // Assert
             Assert.Equal(100, dictionary["new"]);
             Assert.Single(dictionary);
@@ -199,11 +206,13 @@ namespace Eventualist.Extensions.Tests.Collections
         public void DefaultValueIndexer_SetExistingKey_UpdatesValue()
         {
             // Arrange
-            var dictionary = new ExtendedDictionary<string, int> { ["key"] = 42 };
-            
-            // Act
-            dictionary["key", 999] = 100;
-            
+            var dictionary = new ExtendedDictionary<string, int>
+            {
+                ["key"] = 42,
+                // Act
+                ["key", 999] = 100
+            };
+
             // Assert
             Assert.Equal(100, dictionary["key"]);
             Assert.Single(dictionary);
