@@ -43,11 +43,75 @@ For production use, please thoroughly test the library in your specific context 
 
 ### String Extensions
 - **`Titleize()`** - Converts a string to title case
-- **`Abbreviate(int maxLength)`** - Shortens a string to a maximum length with ellipsis
-- **`Truncate(int maxLength)`** - Truncates a string to a maximum length
+  ```csharp
+  "helloWorld".Titleize() // Returns "Hello World"
+  "SHOUTING_TEXT".Titleize() // Returns "Shouting_TEXT"
+  "snake_case_example".Titleize() // Returns "Snake_case_example"
+  ```
+- **`Abbreviate(int maxLength, string abbreviationSymbol = "...")`** - Shortens a string to a maximum length with ellipsis
+  ```csharp
+  "This is a very long sentence that needs to be abbreviated".Abbreviate(30)
+  // Returns "This is a very long..."
+  
+  "Short text".Abbreviate(20) // Returns "Short text" (no truncation needed)
+  ```
+- **`Truncate(int maxLength, string suffix = "...")`** - Truncates a string to a maximum length
+  ```csharp
+  "Hello World".Truncate(8) // Returns "Hello..."
+  "Hello World".Truncate(8, "[more]") // Returns "Hel[more]"
+  ```
 - **`StripHtml()`** - Removes HTML tags from a string
-- **`HasCorrectExtension(string expectedExtension)`** - Validates file extension
+  ```csharp
+  "<p>Hello <strong>World</strong></p>".StripHtml() // Returns "Hello World"
+  ```
+- **`HasCorrectExtension(params string[] additionalExtensions)`** - Validates file extension (defaults to image extensions)
+  ```csharp
+  "photo.jpg".HasCorrectExtension() // Returns true
+  "document.pdf".HasCorrectExtension() // Returns false
+  "document.pdf".HasCorrectExtension("pdf", "doc") // Returns true
+  ```
 - **`ConvertToMimeType()`** - Converts file extension to MIME type
+  ```csharp
+  "jpg".ConvertToMimeType() // Returns "image/jpeg"
+  ".png".ConvertToMimeType() // Returns "image/png"
+  "pdf".ConvertToMimeType() // Returns "application/pdf"
+  "unknown".ConvertToMimeType() // Returns "application/octet-stream"
+  ```
+- **`ShowIfNone(string alternativeText = "None")`** - Returns alternative text if string is null or empty
+  ```csharp
+  string? emptyString = null;
+  emptyString.ShowIfNone() // Returns "None"
+  emptyString.ShowIfNone("N/A") // Returns "N/A"
+  "Hello".ShowIfNone() // Returns "Hello"
+  ```
+- **`ToSentenceCase()`** - Converts camelCase or PascalCase to sentence case
+  ```csharp
+  "thisIsATest".ToSentenceCase() // Returns "this is a test"
+  "PascalCaseExample".ToSentenceCase() // Returns "pascal case example"
+  ```
+- **`SplitCamelCase()`** - Splits camel case text into separate words
+  ```csharp
+  "camelCaseString".SplitCamelCase() // Returns "camel Case String"
+  "HTTPSConnection".SplitCamelCase() // Returns "HTTPS Connection"
+  ```
+- **`Capitalize(CultureInfo? culture = null)`** - Capitalizes the first character
+  ```csharp
+  "hello".Capitalize() // Returns "Hello"
+  ```
+- **`Left(int length)`** / **`Right(int length)`** - Gets leftmost or rightmost characters
+  ```csharp
+  "Hello World".Left(5) // Returns "Hello"
+  "Hello World".Right(5) // Returns "World"
+  ```
+- **`Reverse()`** - Reverses a string
+  ```csharp
+  "Hello".Reverse() // Returns "olleH"
+  ```
+- **`ParseDateFromDateTimePicker(CultureInfo? culture = null)`** - Parses yyyy/MM/dd format dates
+  ```csharp
+  "2024/12/25".ParseDateFromDateTimePicker() // Returns DateTime(2024, 12, 25)
+  "invalid".ParseDateFromDateTimePicker() // Returns null
+  ```
 
 ### DateTime Extensions & Validation
 - **`MustComeBefore` Attribute** - Validation attribute to ensure one DateTime property precedes another
