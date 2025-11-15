@@ -2,36 +2,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Nullable>annotations</Nullable>
+	  <LangVersion>14</LangVersion>
     
-    <Version>4.0.0.3</Version>
+    <Version>5.0.0-dev0008</Version>
     
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Description>A number of simple extensions to bool, and collections. Mainly used for my own website, but you can peruse for your own pleasure.
-- Bool: AddNot (transforms a string according to the value of the bool)
-- Bool: ToYesOrNo (transforms bool to a yes or no)
--Collection: IsEmpty: returns true if collection is empty
--Collection: IsNotEmpty: returns true if collection is not empty
--Collection: returns a list of sublists of the collections, with a specified maximumlength
+    <Description>Lightweight extension methods for booleans, strings and collections. Includes:
+- Bool: AddNot (conditionally prefixes a string), ToYesOrNo (converts bool to "yes"/"no").
+- Collection: IsEmpty, IsNotEmpty, and Chunk (splits a collection into sublists with a maximum length).
+- Memoize: simple caching for Func delegates (supports up to two arguments).
 
-In 1.0.0.13
-
-- Memoize, to automatically cache function results. Just apply Memoize() to a Function object to get a memoized version. Caveats: it only works for up to two arguments, and it does not much benefit recursive functions.
-
-In 2.0.0.0
-
-- No new functionality but now compatible with .net 6.0. For compatibility with older versions use 1.0.0.19</Description>
+Targeted for .NET 10.0. MIT licensed.</Description>
     
     <Authors>Iede Snoek (info@esoxsolutions.nl)</Authors>
     
     <Company>Esox Solutions</Company>
     
-    <Copyright>(c) 2022 Esox Solutions</Copyright>
+    <Copyright>(c) 2026 Esox Solutions</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration) == 'Debug'">
