@@ -35,20 +35,6 @@ Targeted for .NET 10.0. MIT licensed.</Description>
     <PackageProjectUrl>https://github.com/snoekiede/Eventualist.Extensions</PackageProjectUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(Configuration) == 'Debug'">
-    <BumpLabel>dev</BumpLabel>
-    <BumpLabelDigits>4</BumpLabelDigits>
-  </PropertyGroup>
-  <PropertyGroup Condition="$(Configuration) == 'Release'">
-    <BumpRevision>True</BumpRevision>
-    <BumpResetLabel>dev</BumpResetLabel>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="MSBump" Version="2.3.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
