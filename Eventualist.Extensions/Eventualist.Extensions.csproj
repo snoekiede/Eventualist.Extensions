@@ -7,7 +7,7 @@
     <Nullable>annotations</Nullable>
 	  <LangVersion>14</LangVersion>
     
-    <Version>5.0.0-dev0008</Version>
+    <Version>5.0.0.1</Version>
     
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     
