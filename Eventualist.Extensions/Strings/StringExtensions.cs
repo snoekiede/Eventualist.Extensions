@@ -317,10 +317,10 @@ namespace Eventualist.Extensions.Strings
                 bool isEnclosedSuffix = suffix.StartsWith("[") && suffix.EndsWith("]");
 
                 // Calculate how many characters to take from the original string
-                int truncateLength;
 
-                // For bracketed suffixes, allow an extra character
-                truncateLength = isEnclosedSuffix ? Math.Max(0, maxLength - suffix.Length + 1) :
+                var truncateLength =
+                    // For bracketed suffixes, allow an extra character
+                    isEnclosedSuffix ? Math.Max(0, maxLength - suffix.Length + 1) :
                     // Standard calculation for regular suffixes
                     Math.Max(0, maxLength - suffix.Length);
 

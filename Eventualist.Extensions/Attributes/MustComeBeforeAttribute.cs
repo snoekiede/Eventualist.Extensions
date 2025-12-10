@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Eventualist.Extensions.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class MustComeBeforeAttribute(string otherProperty)
         : ValidationAttribute($"Must occur before {otherProperty}")
     {
