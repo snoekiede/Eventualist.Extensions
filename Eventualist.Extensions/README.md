@@ -145,7 +145,7 @@ For production use, please thoroughly test the library in your specific context 
 Add the package reference to your project:
 
 ```xml
-<PackageReference Include="Eventualist.Extensions" Version="4.0.0.3-dev0004" />
+<PackageReference Include="Eventualist.Extensions" Version="5.0.0.1" />
 ```
 
 Or via the .NET CLI:
@@ -162,6 +162,17 @@ dotnet add package Eventualist.Extensions
 
 ## Version History
 
+- **5.0.0.1**: Major upgrade to .NET 10.0 and C# 14
+  - Refactored all extension methods to use modern `extension` syntax for improved readability
+  - Enhanced Boolean, Collection, DateTime, Function, and String extensions with better null handling
+  - Improved XML documentation across all methods
+  - Consolidated nullable and non-nullable overloads where applicable
+  - Updated dependencies to latest versions
+  - Added support for multiple `MustComeBefore` attributes on a single property
+  - Optimized string truncation logic for better clarity
+  - Code cleanup and modernization following C# 14 conventions
+  - Improved testability and backward compatibility
+  - Streamlined CI/CD workflow with strong-name key provisioning
 - **4.0.0.3-dev0004**: Updated to .NET 10 and C# 14, refreshed CI workflow
 - **3.x**: Updates for .NET 9 compatibility
 - **2.0.0.0**: .NET 6.0 compatibility (use version 1.0.0.19 for older frameworks)
