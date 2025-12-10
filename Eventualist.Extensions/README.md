@@ -204,11 +204,16 @@ dotnet pack
 
 ## Contributing
 
-Contributions are welcome! Please:
+Contributions are welcome! Please see our [Contributing Guidelines](../CONTRIBUTING.md) for detailed information on how to contribute.
+
+Quick start:
 1. Fork the repository
 2. Create a feature branch
-3. Run `dotnet test` locally to ensure all tests pass
-4. Submit a pull request
+3. Make your changes and add tests
+4. Run `dotnet test` locally to ensure all tests pass
+5. Submit a pull request
+
+For bug reports, feature requests, or questions, please open an issue on GitHub.
 
 ## Author
 
