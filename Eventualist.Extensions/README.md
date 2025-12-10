@@ -215,6 +215,12 @@ Quick start:
 
 For bug reports, feature requests, or questions, please open an issue on GitHub.
 
+## Security
+
+For information about reporting security vulnerabilities and our security policies, please see our [Security Policy](../SECURITY.md).
+
+**Important**: Do not report security vulnerabilities through public GitHub issues. Please email info@esoxsolutions.nl instead.
+
 ## Author
 
 **Iede Snoek**  

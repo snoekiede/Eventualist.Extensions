@@ -1,8 +1,8 @@
-# Contributing to Eventualist.Extensions
+﻿# Contributing to Eventualist.Extensions
 
 Thank you for your interest in contributing to Eventualist.Extensions! This document provides guidelines and information for contributors.
 
-## ?? Important Notice
+## ⚠️ Important Notice
 
 This library is primarily developed for personal use and experimentation. While contributions are welcome, please note:
 
@@ -15,7 +15,7 @@ This library is primarily developed for personal use and experimentation. While 
 ### Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
-- A code editor (Visual Studio 2025+, VS Code, or Rider recommended)
+- A code editor (Visual Studio 2022+, VS Code, or Rider recommended)
 - Git for version control
 
 ### Setting Up Your Development Environment
@@ -242,4 +242,4 @@ Contributors will be acknowledged in release notes and appreciated for their eff
 
 ---
 
-Thank you for contributing to Eventualist.Extensions! ??
+Thank you for contributing to Eventualist.Extensions! 🎉
