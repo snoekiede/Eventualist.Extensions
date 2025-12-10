@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Globalization;
 using Eventualist.Extensions.Strings;
 using Xunit;
@@ -338,6 +338,63 @@ namespace Eventualist.Extensions.Tests.Unit.Strings
         public void TestReverse(string? input, string expected)
         {
             Assert.Equal(expected, input.Reverse());
+        }
+
+        #endregion
+
+        #region ToSlug Tests
+
+        [Theory]
+        [InlineData("Hello World", "hello-world")]
+        [InlineData("C# Programming 101", "c-programming-101")]
+        [InlineData("Hello World!", "hello-world")]
+        [InlineData("café résumé", "cafe-resume")]
+        [InlineData("multiple   spaces", "multiple-spaces")]
+        [InlineData("under_score_test", "under-score-test")]
+        [InlineData("---leading-trailing---", "leading-trailing")]
+        [InlineData("", "")]
+        [InlineData(null, "")]
+        public void TestToSlug(string? input, string expected)
+        {
+            Assert.Equal(expected, input.ToSlug());
+        }
+
+        [Fact]
+        public void ToSlug_WithSpecialCharacters_RemovesThem()
+        {
+            // Special characters between words should be removed, but spaces create hyphens
+            Assert.Equal("hello-world", "Hello World#!".ToSlug());
+            // Without spaces, just removes special chars
+            Assert.Equal("helloworld", "Hello@World".ToSlug());
+        }
+
+        [Fact]
+        public void ToSlug_WithMixedCase_ConvertsToLowercase()
+        {
+            Assert.Equal("hello-world", "HeLLo WoRLd".ToSlug());
+        }
+
+        #endregion
+
+        #region RemoveWhitespace Tests
+
+        [Theory]
+        [InlineData("Hello World", "HelloWorld")]
+        [InlineData("  spaces  everywhere  ", "spaceseverywhere")]
+        [InlineData("tab\there", "tabhere")]
+        [InlineData("new\nline", "newline")]
+        [InlineData("", "")]
+        [InlineData(null, "")]
+        public void TestRemoveWhitespace(string? input, string expected)
+        {
+            Assert.Equal(expected, input.RemoveWhitespace());
+        }
+
+        [Fact]
+        public void RemoveWhitespace_WithMultipleWhitespaceTypes_RemovesAll()
+        {
+            var input = "Hello \t\r\n World";
+            Assert.Equal("HelloWorld", input.RemoveWhitespace());
         }
 
         #endregion

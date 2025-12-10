@@ -35,10 +35,46 @@ For production use, please thoroughly test the library in your specific context 
 ### Collection Extensions
 - **`IsEmpty<T>()`** - Returns true if the collection is empty
 - **`IsNotEmpty<T>()`** - Returns true if the collection contains any elements
+- **`WhereNotNull<T>()`** - Filters out null values from a collection
+  ```csharp
+  var items = new[] { "a", null, "b", null, "c" };
+  var filtered = items.WhereNotNull(); // Returns ["a", "b", "c"]
+  ```
+- **`ContainsAll<T>(params T[] items)`** - Determines whether the collection contains all of the specified items
+  ```csharp
+  var numbers = new[] { 1, 2, 3, 4, 5 };
+  numbers.ContainsAll(2, 4) // Returns true
+  numbers.ContainsAll(2, 6) // Returns false
+  ```
 - **`Divide<T>(int maxLength)`** - Splits a collection into sublists with a specified maximum length
   ```csharp
   var numbers = new[] { 1, 2, 3, 4, 5, 6, 7 };
   var chunks = numbers.Divide(3); // Returns [[1,2,3], [4,5,6], [7]]
+  ```
+
+### Numeric Extensions
+- **`IsEven()`** / **`IsOdd()`** - Determines whether a number is even or odd
+  ```csharp
+  4.IsEven() // Returns true
+  5.IsOdd() // Returns true
+  ```
+- **`IsBetween(min, max)`** - Determines whether a number is between two values (inclusive)
+  ```csharp
+  5.IsBetween(1, 10) // Returns true
+  15.IsBetween(1, 10) // Returns false
+  ```
+- **`Clamp(min, max)`** - Clamps a number to be within a specified range
+  ```csharp
+  15.Clamp(0, 10) // Returns 10
+  (-5).Clamp(0, 10) // Returns 0
+  5.Clamp(0, 10) // Returns 5
+  ```
+- **`ToOrdinal()`** - Converts a number to its ordinal string representation
+  ```csharp
+  1.ToOrdinal() // Returns "1st"
+  2.ToOrdinal() // Returns "2nd"
+  3.ToOrdinal() // Returns "3rd"
+  21.ToOrdinal() // Returns "21st"
   ```
 
 ### String Extensions
@@ -47,6 +83,16 @@ For production use, please thoroughly test the library in your specific context 
   "helloWorld".Titleize() // Returns "Hello World"
   "SHOUTING_TEXT".Titleize() // Returns "Shouting_TEXT"
   "snake_case_example".Titleize() // Returns "Snake_case_example"
+  ```
+- **`ToSlug()`** - Converts a string to a URL-friendly slug
+  ```csharp
+  "Hello World!".ToSlug() // Returns "hello-world"
+  "C# Programming 101".ToSlug() // Returns "c-programming-101"
+  ```
+- **`RemoveWhitespace()`** - Removes all whitespace characters from a string
+  ```csharp
+  "Hello World".RemoveWhitespace() // Returns "HelloWorld"
+  "  spaces  everywhere  ".RemoveWhitespace() // Returns "spaceseverywhere"
   ```
 - **`Abbreviate(int maxLength, string abbreviationSymbol = "...")`** - Shortens a string to a maximum length with ellipsis
   ```csharp
@@ -114,6 +160,27 @@ For production use, please thoroughly test the library in your specific context 
   ```
 
 ### DateTime Extensions & Validation
+- **`Age()`** / **`Age(DateTime asOfDate)`** - Calculates the age in years from this date
+  ```csharp
+  var birthdate = new DateTime(1990, 1, 1);
+  var age = birthdate.Age(); // Returns the current age
+  ```
+- **`ToRelativeTime()`** / **`ToRelativeTime(DateTime referenceDate)`** - Returns a human-readable relative time string
+  ```csharp
+  var pastDate = DateTime.Now.AddHours(-2);
+  pastDate.ToRelativeTime() // Returns "2 hours ago"
+  ```
+- **`IsToday()`** / **`IsTomorrow()`** / **`IsYesterday()`** - Determines whether the date is today, tomorrow, or yesterday
+  ```csharp
+  DateTime.Today.IsToday() // Returns true
+  DateTime.Today.AddDays(1).IsTomorrow() // Returns true
+  ```
+- **`StartOfWeek(DayOfWeek startOfWeek = DayOfWeek.Sunday)`** / **`EndOfWeek(DayOfWeek startOfWeek = DayOfWeek.Sunday)`** - Returns the start or end of the week
+  ```csharp
+  var date = new DateTime(2024, 1, 10); // Wednesday
+  date.StartOfWeek(DayOfWeek.Monday) // Returns Monday of that week
+  date.EndOfWeek(DayOfWeek.Monday) // Returns Sunday at 23:59:59.999
+  ```
 - **`MustComeBefore` Attribute** - Validation attribute to ensure one DateTime property precedes another
   ```csharp
   public class TimePeriod
@@ -136,6 +203,20 @@ For production use, please thoroughly test the library in your specific context 
   ```
   - Supports functions with up to two arguments
   - Note: Not optimized for recursive functions
+
+### Object Extensions
+- **`IsNull<T>()`** / **`IsNotNull<T>()`** - Determines whether an object is null or not null
+  ```csharp
+  string? text = null;
+  text.IsNull() // Returns true
+  "hello".IsNotNull() // Returns true
+  ```
+- **`ThrowIfNull<T>()`** - Throws an ArgumentNullException if the object is null
+  ```csharp
+  string? text = GetText();
+  text.ThrowIfNull(); // Throws if text is null, otherwise returns text
+  var upper = text.ThrowIfNull().ToUpper(); // Method chaining
+  ```
 
 ### ExtendedDictionary
 - Thread-safe dictionary implementation with improved performance characteristics

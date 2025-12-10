@@ -415,7 +415,89 @@ namespace Eventualist.Extensions.Strings
                 Array.Reverse(charArray);
                 return new string(charArray);
             }
+
+            /// <summary>
+            /// Converts a string to a URL-friendly slug
+            /// </summary>
+            /// <returns>A lowercase, hyphenated slug suitable for URLs</returns>
+            /// <example>
+            /// <code>
+            /// "Hello World!".ToSlug() // Returns "hello-world"
+            /// "C# Programming 101".ToSlug() // Returns "c-programming-101"
+            /// </code>
+            /// </example>
+            public string ToSlug()
+            {
+                if (string.IsNullOrEmpty(text))
+                {
+                    return string.Empty;
+                }
+
+                // Convert to lowercase
+                var slug = text.ToLowerInvariant();
+
+                // Remove diacritics (accents)
+                slug = RemoveDiacritics(slug);
+
+                // Replace spaces and underscores with hyphens
+                slug = Regex.Replace(slug, @"[\s_]+", "-");
+
+                // Remove invalid characters (keep only letters, numbers, and hyphens)
+                slug = Regex.Replace(slug, @"[^a-z0-9\-]", "");
+
+                // Remove multiple consecutive hyphens
+                slug = Regex.Replace(slug, @"-+", "-");
+
+                // Trim hyphens from start and end
+                slug = slug.Trim('-');
+
+                return slug;
+            }
+
+            /// <summary>
+            /// Removes all whitespace characters from a string
+            /// </summary>
+            /// <returns>The string with all whitespace removed</returns>
+            /// <example>
+            /// <code>
+            /// "Hello World".RemoveWhitespace() // Returns "HelloWorld"
+            /// "  spaces  everywhere  ".RemoveWhitespace() // Returns "spaceseverywhere"
+            /// </code>
+            /// </example>
+            public string RemoveWhitespace()
+            {
+                if (string.IsNullOrEmpty(text))
+                {
+                    return string.Empty;
+                }
+
+                return Regex.Replace(text, @"\s+", "");
+            }
         }
-        
+
+        /// <summary>
+        /// Helper method to remove diacritics (accents) from characters
+        /// </summary>
+        private static string RemoveDiacritics(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
     }
 }

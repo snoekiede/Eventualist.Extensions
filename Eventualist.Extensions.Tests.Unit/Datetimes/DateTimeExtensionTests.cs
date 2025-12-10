@@ -231,5 +231,261 @@ namespace Eventualist.Extensions.Tests.Unit.Datetimes
         }
 
         #endregion
+
+        #region Age Tests
+
+        [Fact]
+        public void Age_BeforeBirthday_ReturnsCorrectAge()
+        {
+            // Arrange
+            var birthdate = new DateTime(1990, 6, 15);
+            var asOfDate = new DateTime(2024, 1, 1); // Before birthday
+            
+            // Act
+            var age = birthdate.Age(asOfDate);
+            
+            // Assert
+            Assert.Equal(33, age);
+        }
+
+        [Fact]
+        public void Age_AfterBirthday_ReturnsCorrectAge()
+        {
+            // Arrange
+            var birthdate = new DateTime(1990, 6, 15);
+            var asOfDate = new DateTime(2024, 12, 31); // After birthday
+            
+            // Act
+            var age = birthdate.Age(asOfDate);
+            
+            // Assert
+            Assert.Equal(34, age);
+        }
+
+        [Fact]
+        public void Age_OnBirthday_ReturnsCorrectAge()
+        {
+            // Arrange
+            var birthdate = new DateTime(1990, 6, 15);
+            var asOfDate = new DateTime(2024, 6, 15); // On birthday
+            
+            // Act
+            var age = birthdate.Age(asOfDate);
+            
+            // Assert
+            Assert.Equal(34, age);
+        }
+
+        #endregion
+
+        #region ToRelativeTime Tests
+
+        [Fact]
+        public void ToRelativeTime_JustNow_ReturnsCorrectString()
+        {
+            // Arrange
+            var referenceDate = new DateTime(2024, 1, 1, 12, 0, 0);
+            var date = referenceDate.AddSeconds(-30);
+            
+            // Act
+            var result = date.ToRelativeTime(referenceDate);
+            
+            // Assert
+            Assert.Equal("just now", result);
+        }
+
+        [Fact]
+        public void ToRelativeTime_Minutes_ReturnsCorrectString()
+        {
+            // Arrange
+            var referenceDate = new DateTime(2024, 1, 1, 12, 0, 0);
+            var date = referenceDate.AddMinutes(-5);
+            
+            // Act
+            var result = date.ToRelativeTime(referenceDate);
+            
+            // Assert
+            Assert.Contains("5 minutes ago", result);
+        }
+
+        [Fact]
+        public void ToRelativeTime_OneMinute_UsesSingular()
+        {
+            // Arrange
+            var referenceDate = new DateTime(2024, 1, 1, 12, 0, 0);
+            var date = referenceDate.AddMinutes(-1);
+            
+            // Act
+            var result = date.ToRelativeTime(referenceDate);
+            
+            // Assert
+            Assert.Contains("1 minute ago", result);
+        }
+
+        [Fact]
+        public void ToRelativeTime_Hours_ReturnsCorrectString()
+        {
+            // Arrange
+            var referenceDate = new DateTime(2024, 1, 1, 12, 0, 0);
+            var date = referenceDate.AddHours(-2);
+            
+            // Act
+            var result = date.ToRelativeTime(referenceDate);
+            
+            // Assert
+            Assert.Contains("2 hours ago", result);
+        }
+
+        [Fact]
+        public void ToRelativeTime_Days_ReturnsCorrectString()
+        {
+            // Arrange
+            var referenceDate = new DateTime(2024, 1, 1, 12, 0, 0);
+            var date = referenceDate.AddDays(-3);
+            
+            // Act
+            var result = date.ToRelativeTime(referenceDate);
+            
+            // Assert
+            Assert.Contains("3 days ago", result);
+        }
+
+        [Fact]
+        public void ToRelativeTime_Future_ReturnsCorrectString()
+        {
+            // Arrange
+            var referenceDate = new DateTime(2024, 1, 1, 12, 0, 0);
+            var date = referenceDate.AddHours(2);
+            
+            // Act
+            var result = date.ToRelativeTime(referenceDate);
+            
+            // Assert
+            Assert.Contains("in 2 hours", result);
+        }
+
+        #endregion
+
+        #region IsToday/IsTomorrow/IsYesterday Tests
+
+        [Fact]
+        public void IsToday_WithToday_ReturnsTrue()
+        {
+            // Act & Assert
+            Assert.True(DateTime.Today.IsToday());
+            Assert.True(DateTime.Now.IsToday());
+        }
+
+        [Fact]
+        public void IsToday_WithYesterday_ReturnsFalse()
+        {
+            // Act & Assert
+            Assert.False(DateTime.Today.AddDays(-1).IsToday());
+        }
+
+        [Fact]
+        public void IsTomorrow_WithTomorrow_ReturnsTrue()
+        {
+            // Act & Assert
+            Assert.True(DateTime.Today.AddDays(1).IsTomorrow());
+        }
+
+        [Fact]
+        public void IsTomorrow_WithToday_ReturnsFalse()
+        {
+            // Act & Assert
+            Assert.False(DateTime.Today.IsTomorrow());
+        }
+
+        [Fact]
+        public void IsYesterday_WithYesterday_ReturnsTrue()
+        {
+            // Act & Assert
+            Assert.True(DateTime.Today.AddDays(-1).IsYesterday());
+        }
+
+        [Fact]
+        public void IsYesterday_WithToday_ReturnsFalse()
+        {
+            // Act & Assert
+            Assert.False(DateTime.Today.IsYesterday());
+        }
+
+        #endregion
+
+        #region StartOfWeek/EndOfWeek Tests
+
+        [Fact]
+        public void StartOfWeek_WithSunday_ReturnsCorrectDate()
+        {
+            // Arrange - Wednesday, January 10, 2024
+            var date = new DateTime(2024, 1, 10);
+            
+            // Act
+            var result = date.StartOfWeek(DayOfWeek.Sunday);
+            
+            // Assert
+            Assert.Equal(DayOfWeek.Sunday, result.DayOfWeek);
+            Assert.Equal(new DateTime(2024, 1, 7), result);
+        }
+
+        [Fact]
+        public void StartOfWeek_WithMonday_ReturnsCorrectDate()
+        {
+            // Arrange - Wednesday, January 10, 2024
+            var date = new DateTime(2024, 1, 10);
+            
+            // Act
+            var result = date.StartOfWeek(DayOfWeek.Monday);
+            
+            // Assert
+            Assert.Equal(DayOfWeek.Monday, result.DayOfWeek);
+            Assert.Equal(new DateTime(2024, 1, 8), result);
+        }
+
+        [Fact]
+        public void StartOfWeek_OnStartDay_ReturnsSameDate()
+        {
+            // Arrange - Monday, January 8, 2024
+            var monday = new DateTime(2024, 1, 8);
+            
+            // Act
+            var result = monday.StartOfWeek(DayOfWeek.Monday);
+            
+            // Assert
+            Assert.Equal(monday.Date, result);
+        }
+
+        [Fact]
+        public void EndOfWeek_WithSunday_ReturnsCorrectDate()
+        {
+            // Arrange - Wednesday, January 10, 2024
+            var date = new DateTime(2024, 1, 10);
+            
+            // Act
+            var result = date.EndOfWeek(DayOfWeek.Sunday);
+            
+            // Assert
+            Assert.Equal(DayOfWeek.Saturday, result.DayOfWeek);
+            Assert.Equal(23, result.Hour);
+            Assert.Equal(59, result.Minute);
+            Assert.Equal(59, result.Second);
+        }
+
+        [Fact]
+        public void EndOfWeek_WithMonday_ReturnsCorrectDate()
+        {
+            // Arrange - Wednesday, January 10, 2024
+            var date = new DateTime(2024, 1, 10);
+            
+            // Act
+            var result = date.EndOfWeek(DayOfWeek.Monday);
+            
+            // Assert
+            Assert.Equal(DayOfWeek.Sunday, result.DayOfWeek);
+            Assert.Equal(new DateTime(2024, 1, 14).Date, result.Date);
+        }
+
+        #endregion
     }
 }

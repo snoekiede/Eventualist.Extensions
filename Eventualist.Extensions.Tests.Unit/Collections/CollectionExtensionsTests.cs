@@ -143,18 +143,136 @@ namespace Eventualist.Extensions.Tests.Collections
             Assert.Throws<ArgumentNullException>(() => numbers.CreateOrderedString(nullSelector));
         }
         
+        [Fact]
+        public void Divide_WithNullCollection_ThrowsArgumentNullException()
+        {
+            // Arrange
+            IEnumerable<int> nullList = null!;
+            
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => nullList.Divide(3).ToList());
+        }
 
-        
+        #region WhereNotNull Tests
 
-        
+        [Fact]
+        public void WhereNotNull_WithMixedNullAndNonNull_FiltersOutNulls()
+        {
+            // Arrange
+            var items = new[] { "a", null, "b", null, "c" };
+            
+            // Act
+            var result = items.WhereNotNull().ToList();
+            
+            // Assert
+            Assert.Equal(3, result.Count);
+            Assert.Equal(new[] { "a", "b", "c" }, result);
+        }
 
-        
+        [Fact]
+        public void WhereNotNull_WithAllNulls_ReturnsEmpty()
+        {
+            // Arrange
+            var items = new string?[] { null, null, null };
+            
+            // Act
+            var result = items.WhereNotNull().ToList();
+            
+            // Assert
+            Assert.Empty(result);
+        }
 
-        
+        [Fact]
+        public void WhereNotNull_WithNoNulls_ReturnsAll()
+        {
+            // Arrange
+            var items = new[] { "a", "b", "c" };
+            
+            // Act
+            var result = items.WhereNotNull().ToList();
+            
+            // Assert
+            Assert.Equal(3, result.Count);
+            Assert.Equal(items, result);
+        }
 
-        
+        [Fact]
+        public void WhereNotNull_WithNullCollection_ThrowsArgumentNullException()
+        {
+            // Arrange
+            IEnumerable<string> nullList = null!;
+            
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => nullList.WhereNotNull().ToList());
+        }
 
-        
+        #endregion
+
+        #region ContainsAll Tests
+
+        [Fact]
+        public void ContainsAll_WithAllItemsPresent_ReturnsTrue()
+        {
+            // Arrange
+            var numbers = new[] { 1, 2, 3, 4, 5 };
+            
+            // Act
+            var result = numbers.ContainsAll(2, 4);
+            
+            // Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void ContainsAll_WithSomeItemsMissing_ReturnsFalse()
+        {
+            // Arrange
+            var numbers = new[] { 1, 2, 3, 4, 5 };
+            
+            // Act
+            var result = numbers.ContainsAll(2, 6);
+            
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void ContainsAll_WithEmptyItemsList_ReturnsTrue()
+        {
+            // Arrange
+            var numbers = new[] { 1, 2, 3 };
+            
+            // Act
+            var result = numbers.ContainsAll();
+            
+            // Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void ContainsAll_WithDuplicateItems_ChecksCorrectly()
+        {
+            // Arrange
+            var numbers = new[] { 1, 2, 3, 4, 5 };
+            
+            // Act
+            var result = numbers.ContainsAll(2, 2, 3, 3);
+            
+            // Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void ContainsAll_WithNullCollection_ThrowsArgumentNullException()
+        {
+            // Arrange
+            IEnumerable<int> nullList = null!;
+            
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => nullList.ContainsAll(1, 2));
+        }
+
+        #endregion
         
         private class Person
         {

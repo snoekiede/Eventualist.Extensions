@@ -88,32 +88,44 @@ namespace Eventualist.Extensions.Collections
 #endif
             }
 
-#if !NET6_0_OR_GREATER
-        private static IEnumerable<IEnumerable<T>> DivideImplementation<T>(IEnumerable<T> collection, int groupSize)
-        {
-            var currentGroup = new List<T>(groupSize);
-            
-            foreach (var item in collection)
+            /// <summary>
+            /// Filters out null values from a collection
+            /// </summary>
+            /// <returns>A collection with all null values removed</returns>
+            /// <exception cref="ArgumentNullException">Thrown when collection is null</exception>
+            /// <example>
+            /// <code>
+            /// var items = new[] { "a", null, "b", null, "c" };
+            /// var filtered = items.WhereNotNull(); // Returns ["a", "b", "c"]
+            /// </code>
+            /// </example>
+            public IEnumerable<T> WhereNotNull()
             {
-                currentGroup.Add(item);
-                
-                if (currentGroup.Count == groupSize)
-                {
-                    yield return currentGroup;
-                    currentGroup = new List<T>(groupSize);
-                }
+                ArgumentNullException.ThrowIfNull(collection);
+                return collection.Where(item => item != null)!;
             }
-            
-            if (currentGroup.Count > 0)
+
+            /// <summary>
+            /// Determines whether the collection contains all of the specified items
+            /// </summary>
+            /// <param name="items">The items to check for</param>
+            /// <returns>True if all items are present, otherwise false</returns>
+            /// <exception cref="ArgumentNullException">Thrown when collection or items is null</exception>
+            /// <example>
+            /// <code>
+            /// var numbers = new[] { 1, 2, 3, 4, 5 };
+            /// numbers.ContainsAll(2, 4) // Returns true
+            /// numbers.ContainsAll(2, 6) // Returns false
+            /// </code>
+            /// </example>
+            public bool ContainsAll(params T[] items)
             {
-                yield return currentGroup;
+                ArgumentNullException.ThrowIfNull(collection);
+                ArgumentNullException.ThrowIfNull(items);
+
+                var collectionSet = collection.ToHashSet();
+                return items.All(item => collectionSet.Contains(item));
             }
-        }
-#endif
-
-
-
-
         }
     }
         
