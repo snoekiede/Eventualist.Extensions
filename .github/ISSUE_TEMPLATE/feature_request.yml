@@ -1,0 +1,105 @@
+name: Feature Request
+description: Suggest a new feature or enhancement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a feature! Please fill out the following information.
+        
+        **Note**: This is a personal project maintained on a best-effort basis. Features may be accepted or declined based on the project maintainer's needs and vision.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: I'm frustrated when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like
+      placeholder: I would like to have a method that...
+    validations:
+      required: true
+
+  - type: textarea
+    id: usage
+    attributes:
+      label: Usage Example
+      description: Provide example code showing how you would use this feature
+      render: csharp
+      placeholder: |
+        var result = "test".ProposedMethod();
+        // Expected result: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any alternative solutions or features you've considered
+      placeholder: I've considered...
+
+  - type: dropdown
+    id: target-type
+    attributes:
+      label: Target Type
+      description: What type would this extension apply to?
+      options:
+        - String
+        - Boolean
+        - Collection/IEnumerable
+        - DateTime
+        - Function/Delegate
+        - Other (specify in additional context)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: breaking
+    attributes:
+      label: Breaking Change
+      description: Would this be a breaking change?
+      options:
+        - "No"
+        - "Yes"
+        - "Unsure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefits
+    attributes:
+      label: Benefits
+      description: What are the benefits of this feature?
+      placeholder: |
+        - Simplifies common operation X
+        - Improves readability
+        - Performance improvement for Y
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or examples about the feature request
+      placeholder: Any additional information
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: This feature aligns with the library's goal of lightweight utility extensions
+          required: false
+        - label: I am willing to contribute a pull request for this feature
+          required: false

@@ -51,7 +51,7 @@ This library is primarily developed for personal use and experimentation. While 
 
 ### Reporting Bugs
 
-If you find a bug, please create an issue on GitHub with:
+If you find a bug, please create an issue on GitHub using the [Bug Report template](.github/ISSUE_TEMPLATE/bug_report.yml) with:
 
 - A clear, descriptive title
 - Detailed steps to reproduce the issue
@@ -61,14 +61,24 @@ If you find a bug, please create an issue on GitHub with:
 
 ### Suggesting Enhancements
 
-For feature requests or enhancements:
+For feature requests or enhancements, use the [Feature Request template](.github/ISSUE_TEMPLATE/feature_request.yml):
 
 - Check if a similar suggestion already exists in the issues
 - Provide a clear use case explaining why the feature would be valuable
 - Include example code showing how the feature would be used
 - Keep in mind this is a focused library of lightweight extensions
 
+### Asking Questions
+
+Have a question? Use the [Question template](.github/ISSUE_TEMPLATE/question.yml) or:
+
+- Check existing issues and discussions
+- Review the README and documentation first
+- Provide context and code samples when relevant
+
 ### Pull Requests
+
+When submitting a pull request, our [PR template](.github/PULL_REQUEST_TEMPLATE.md) will guide you through providing all necessary information.
 
 1. **Create a feature branch** from `main`:
    ```bash

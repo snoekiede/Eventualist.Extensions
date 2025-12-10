@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability
+    url: mailto:info@esoxsolutions.nl
+    about: Please report security vulnerabilities via email, not through GitHub issues
+  - name: Documentation
+    url: https://github.com/snoekiede/Eventualist.Extensions/blob/main/Eventualist.Extensions/README.md
+    about: Read the project documentation
+  - name: Contributing Guidelines
+    url: https://github.com/snoekiede/Eventualist.Extensions/blob/main/CONTRIBUTING.md
+    about: Learn how to contribute to this project
