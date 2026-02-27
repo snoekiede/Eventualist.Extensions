@@ -2,23 +2,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Nullable>annotations</Nullable>
+	<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<Nullable>annotations</Nullable>
 	  <LangVersion>14</LangVersion>
-    
-    <Version>5.0.2.0</Version>
-    
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-    
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+	<Version>5.0.2.0</Version>
+
+	<RunPostBuildEvent>Always</RunPostBuildEvent>
+
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Description>Lightweight extension methods for booleans, strings and collections. Includes:
+	<Description>Lightweight extension methods for booleans, strings and collections. Includes:
 - Bool: AddNot (conditionally prefixes a string), ToYesOrNo (converts bool to "yes"/"no").
 - Collection: IsEmpty, IsNotEmpty, and Chunk (splits a collection into sublists with a maximum length).
 - Memoize: simple caching for Func delegates (supports up to two arguments).
 
-Targeted for .NET 10.0. MIT licensed.</Description>
+Targeted for .NET 8.0, .NET 9.0, and .NET 10.0. MIT licensed.</Description>
     
     <Authors>Iede Snoek (info@esoxsolutions.nl)</Authors>
     
