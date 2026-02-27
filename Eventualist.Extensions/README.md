@@ -1,6 +1,6 @@
 ﻿# Eventualist.Extensions
 
-[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)](https://dotnet.microsoft.com/)
+[![.NET](https://img.shields.io/badge/.NET-8.0%20%7C%209.0%20%7C%2010.0-512BD4)](https://dotnet.microsoft.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A collection of lightweight, focused extension methods for common .NET types. Originally created for personal projects but available for anyone to use.
@@ -208,14 +208,22 @@ For production use, please thoroughly test the library in your specific context 
 - **`IsNull<T>()`** / **`IsNotNull<T>()`** - Determines whether an object is null or not null
   ```csharp
   string? text = null;
-  text.IsNull() // Returns true
-  "hello".IsNotNull() // Returns true
+  text.IsNull<string>() // Returns true
+  "hello".IsNotNull<string>() // Returns true
   ```
+
+  ⚠️ **Note (v5.0.2.0+)**: Due to the migration to C# 14 extension syntax, the type parameter may need to be explicitly specified in some contexts where type inference is ambiguous.
+
 - **`ThrowIfNull<T>()`** - Throws an ArgumentNullException if the object is null
   ```csharp
   string? text = GetText();
-  text.ThrowIfNull(); // Throws if text is null, otherwise returns text
-  var upper = text.ThrowIfNull().ToUpper(); // Method chaining
+  text.ThrowIfNull<string>(); // Throws if text is null, otherwise returns text
+  var upper = text.ThrowIfNull<string>().ToUpper(); // Method chaining
+  ```
+
+  ⚠️ **Note (v5.0.2.0+)**: The type parameter may need to be explicitly specified in some contexts. The method also supports an overload with a custom error message:
+  ```csharp
+  text.ThrowIfNull<string>("Text cannot be null");
   ```
 
 ### ExtendedDictionary
@@ -237,12 +245,19 @@ dotnet add package Eventualist.Extensions
 
 ## Compatibility
 
-- **Target Framework**: .NET 10.0 (net10.0)
+- **Target Frameworks**: .NET 8.0 (net8.0), .NET 9.0 (net9.0), .NET 10.0 (net10.0)
 - **C# Language Version**: 14.0
 - **License**: MIT
 
+The NuGet package includes separate assemblies for each supported framework, allowing you to use it in projects targeting .NET 8, .NET 9, or .NET 10.
+
 ## Version History
 
+- **5.0.2.0**: Multi-framework support and compatibility improvements
+  - Added support for .NET 8.0 and .NET 9.0 (in addition to .NET 10.0)
+  - Package now includes assemblies for net8.0, net9.0, and net10.0
+  - **Breaking Change**: Object extension methods (`IsNull<T>()`, `IsNotNull<T>()`, `ThrowIfNull<T>()`) may require explicit type parameters in some contexts due to C# 14 extension syntax migration. For example, use `text.IsNull<string>()` instead of `text.IsNull()` when the compiler cannot infer the type.
+  - Fixed `CallerArgumentExpression` in `ThrowIfNull` to correctly capture parameter names
 - **5.0.0.1**: Major upgrade to .NET 10.0 and C# 14
   - Refactored all extension methods to use modern `extension` syntax for improved readability
   - Enhanced Boolean, Collection, DateTime, Function, and String extensions with better null handling
