@@ -15,7 +15,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string? nullString = null;
             
             // Act
-            var result = nullString.IsNull();
+            var result = nullString.IsNull<string>();
             
             // Assert
             Assert.True(result);
@@ -28,7 +28,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string nonNullString = "hello";
             
             // Act
-            var result = nonNullString.IsNull();
+            var result = nonNullString.IsNull<string>();
             
             // Assert
             Assert.False(result);
@@ -41,7 +41,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             object? nullObject = null;
             
             // Act
-            var result = nullObject.IsNull();
+            var result = nullObject.IsNull<string>();
             
             // Assert
             Assert.True(result);
@@ -58,7 +58,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string? nullString = null;
             
             // Act
-            var result = nullString.IsNotNull();
+            var result = nullString.IsNotNull<string>();
             
             // Assert
             Assert.False(result);
@@ -71,7 +71,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string nonNullString = "hello";
             
             // Act
-            var result = nonNullString.IsNotNull();
+            var result = nonNullString.IsNotNull<string>();
             
             // Assert
             Assert.True(result);
@@ -84,7 +84,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string emptyString = "";
             
             // Act
-            var result = emptyString.IsNotNull();
+            var result = emptyString.IsNotNull<string>();
             
             // Assert
             Assert.True(result);
@@ -101,7 +101,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string? nullString = null;
             
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => nullString.ThrowIfNull());
+            Assert.Throws<ArgumentNullException>(() => nullString.ThrowIfNull<string>());
         }
 
         [Fact]
@@ -111,7 +111,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string nonNullString = "hello";
             
             // Act
-            var result = nonNullString.ThrowIfNull();
+            var result = nonNullString.ThrowIfNull<string>();
             
             // Assert
             Assert.Equal(nonNullString, result);
@@ -122,10 +122,17 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
         {
             // Arrange
             string? testVariable = null;
-            
+
             // Act & Assert
-            var exception = Assert.Throws<ArgumentNullException>(() => testVariable.ThrowIfNull());
-            Assert.Contains("testVariable", exception.ParamName);
+            try
+            {
+                testVariable.ThrowIfNull<string>();
+                Assert.Fail("Expected ArgumentNullException was not thrown");
+            }
+            catch (ArgumentNullException exception)
+            {
+                Assert.Contains("testVariable", exception.ParamName);
+            }
         }
 
         [Fact]
@@ -137,7 +144,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             
             // Act & Assert
             var exception = Assert.Throws<ArgumentNullException>(() => 
-                nullString.ThrowIfNull(customMessage));
+                nullString.ThrowIfNull<string>(customMessage));
             Assert.Contains(customMessage, exception.Message);
         }
 
@@ -148,7 +155,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string nonNullString = "hello";
             
             // Act
-            var result = nonNullString.ThrowIfNull("Should not throw");
+            var result = nonNullString.ThrowIfNull<string>("Should not throw");
             
             // Assert
             Assert.Equal(nonNullString, result);
@@ -161,7 +168,7 @@ namespace Eventualist.Extensions.Tests.Unit.Objects
             string text = "hello";
             
             // Act
-            var result = text.ThrowIfNull().ToUpper();
+            var result = text.ThrowIfNull<string>().ToUpper();
             
             // Assert
             Assert.Equal("HELLO", result);
