@@ -4,45 +4,52 @@ using System.Collections.Generic;
 namespace Eventualist.Extensions.Collections
 {
     /// <summary>
-    /// Dictionary extension that provides default value handling and safer key access
+    /// Dictionary-derived type that provides default-value lookups and key access without exceptions for missing keys
     /// </summary>
     /// <typeparam name="TKey">The type of keys in the dictionary</typeparam>
     /// <typeparam name="TValue">The type of values in the dictionary</typeparam>
     public class ExtendedDictionary<TKey, TValue> : Dictionary<TKey, TValue> where TKey : notnull
     {
         /// <summary>
-        /// Default constructor
+        /// Initializes an empty dictionary using the default equality comparer.
         /// </summary>
         public ExtendedDictionary() : base() { }
 
         /// <summary>
-        /// Constructor with custom equality comparer
+        /// Initializes an empty dictionary using the specified equality comparer.
+        /// <param name="comparer">The equality comparer to use for keys</param>
         /// </summary>
         public ExtendedDictionary(IEqualityComparer<TKey> comparer) : base(comparer) { }
 
         /// <summary>
-        /// Constructor with initial capacity
+        /// Initializes an empty dictionary with the specified initial capacity.
+        /// <param name="capacity">The initial number of entries the dictionary can contain</param>
         /// </summary>
         public ExtendedDictionary(int capacity) : base(capacity) { }
 
         /// <summary>
-        /// Constructor with initial dictionary values
+        /// Initializes the dictionary with the entries from the specified dictionary.
+        /// <param name="dictionary">The dictionary whose entries are copied</param>
         /// </summary>
         public ExtendedDictionary(IDictionary<TKey, TValue> dictionary) : base(dictionary) { }
 
         /// <summary>
-        /// Constructor with initial capacity and custom equality comparer
+        /// Initializes an empty dictionary with the specified capacity and equality comparer.
+        /// <param name="capacity">The initial number of entries the dictionary can contain</param>
+        /// <param name="comparer">The equality comparer to use for keys</param>
         /// </summary>
         public ExtendedDictionary(int capacity, IEqualityComparer<TKey> comparer) : base(capacity, comparer) { }
 
         /// <summary>
-        /// Constructor with initial dictionary values and custom equality comparer
+        /// Initializes the dictionary with entries from the specified dictionary and equality comparer.
+        /// <param name="dictionary">The dictionary whose entries are copied</param>
+        /// <param name="comparer">The equality comparer to use for keys</param>
         /// </summary>
         public ExtendedDictionary(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer)
             : base(dictionary, comparer) { }
 
         /// <summary>
-        /// Gets or sets the value associated with the specified key, returning a default value if the key is not found
+        /// Gets the value associated with the specified key, or a supplied default value when the key is not found; setting always stores the value.
         /// </summary>
         /// <param name="key">The key of the value to get or set</param>
         /// <param name="defaultValue">The default value to return if the key is not found</param>
@@ -55,7 +62,7 @@ namespace Eventualist.Extensions.Collections
         }
 
         /// <summary>
-        /// Gets or sets the value associated with the specified key, returning the type's default value if the key is not found
+        /// Gets the value associated with the specified key, or the type's default value when the key is not found; setting always stores the value.
         /// </summary>
         /// <param name="key">The key of the value to get or set</param>
         /// <returns>The value associated with the key, or the default value for the type if the key is not found</returns>

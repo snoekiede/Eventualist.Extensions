@@ -16,7 +16,6 @@ namespace Eventualist.Extensions.Tests.Unit.Booleans
         [Fact]
         public void ShouldHaveNotNullable()
         {
-            bool? nullableBool = null;
             var result = ((bool?)null).AddNot("implemented");
             Assert.Contains("unknown if implemented", result);
         }
@@ -62,7 +61,6 @@ namespace Eventualist.Extensions.Tests.Unit.Booleans
         [Fact]
         public void YesOrNoWorksForNullValue()
         {
-            bool? nullableBool = null;
             var result = ((bool?)null).ToYesOrNo();
             Assert.Equal("unknown", result);
         }

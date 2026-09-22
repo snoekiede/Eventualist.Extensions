@@ -11,7 +11,7 @@ namespace Eventualist.Extensions.Datetimes
         extension(DateTime date)
         {
             /// <summary>
-            /// Formats date for the datepicker in yyyy/MM/dd format
+            /// Formats the date in yyyy/MM/dd format for a date picker
             /// </summary>
             /// <param name="culture">Optional culture for formatting (uses current culture if not specified)</param>
             /// <returns>A formatted string</returns>
@@ -21,7 +21,7 @@ namespace Eventualist.Extensions.Datetimes
             }
 
             /// <summary>
-            /// Formats time for the datepicker in HH:mm format
+            /// Formats the time in HH:mm format for a date picker
             /// </summary>
             /// <param name="culture">Optional culture for formatting (uses current culture if not specified)</param>
             /// <returns>A formatted string</returns>
@@ -31,7 +31,7 @@ namespace Eventualist.Extensions.Datetimes
             }
 
             /// <summary>
-            /// Formats date and time for the datepicker in yyyy/MM/dd HH:mm format
+            /// Formats the date and time in yyyy/MM/dd HH:mm format for a date picker
             /// </summary>
             /// <param name="culture">Optional culture for formatting (uses current culture if not specified)</param>
             /// <returns>A formatted string</returns>
@@ -41,7 +41,7 @@ namespace Eventualist.Extensions.Datetimes
             }
 
             /// <summary>
-            /// Formats date for the datepicker with a custom format
+            /// Formats the date for a date picker using a custom format
             /// </summary>
             /// <param name="format">The custom format string</param>
             /// <param name="culture">Optional culture for formatting (uses current culture if not specified)</param>
@@ -62,7 +62,7 @@ namespace Eventualist.Extensions.Datetimes
             }
 
             /// <summary>
-            /// Returns a new DateTime with the time component set to the end of the day (23:59:59.999)
+            /// Returns a new DateTime with the time component set to the last tick of the day (23:59:59.9999999)
             /// </summary>
             /// <returns>A DateTime set to the end of the day</returns>
             public DateTime EndOfDay()
@@ -98,10 +98,10 @@ namespace Eventualist.Extensions.Datetimes
             }
 
             /// <summary>
-            /// Adds only business days to the date (skipping weekends)
+            /// Adds weekdays to the date while skipping Saturdays and Sundays
             /// </summary>
             /// <param name="days">The number of business days to add</param>
-            /// <returns>A new DateTime with the business days added</returns>
+            /// <returns>A new DateTime with the specified number of weekdays added</returns>
             public DateTime AddBusinessDays(int days)
             {
                 var result = date;
@@ -130,7 +130,7 @@ namespace Eventualist.Extensions.Datetimes
             /// </example>
             public int Age()
             {
-                return Age(DateTime.Today);
+                return date.Age(DateTime.Today);
             }
 
             /// <summary>
@@ -269,14 +269,14 @@ namespace Eventualist.Extensions.Datetimes
             }
 
             /// <summary>
-            /// Returns a new DateTime set to the end of the week
+            /// Returns a new DateTime set to the last tick of the week
             /// </summary>
             /// <param name="startOfWeek">The day considered as the start of the week (defaults to Sunday)</param>
             /// <returns>A DateTime set to the end of the week</returns>
             /// <example>
             /// <code>
             /// var date = new DateTime(2024, 1, 10); // Wednesday
-            /// date.EndOfWeek(DayOfWeek.Monday) // Returns Sunday of that week at 23:59:59.999
+            /// date.EndOfWeek(DayOfWeek.Monday) // Returns Sunday of that week at 23:59:59.9999999
             /// </code>
             /// </example>
             public DateTime EndOfWeek(DayOfWeek startOfWeek = DayOfWeek.Sunday)

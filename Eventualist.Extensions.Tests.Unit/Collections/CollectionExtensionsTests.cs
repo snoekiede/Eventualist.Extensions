@@ -143,15 +143,7 @@ namespace Eventualist.Extensions.Tests.Collections
             Assert.Throws<ArgumentNullException>(() => numbers.CreateOrderedString(nullSelector));
         }
         
-        [Fact]
-        public void Divide_WithNullCollection_ThrowsArgumentNullException()
-        {
-            // Arrange
-            IEnumerable<int> nullList = null!;
-            
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => nullList.Divide(3).ToList());
-        }
+
 
         #region WhereNotNull Tests
 

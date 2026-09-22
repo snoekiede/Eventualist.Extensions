@@ -43,9 +43,10 @@ namespace Eventualist.Extensions.Objects
             }
 
             /// <summary>
-            /// Throws an ArgumentNullException if the object is null
+            /// Throws an ArgumentNullException if the object is null, optionally with a custom message
             /// </summary>
             /// <typeparam name="T">The type of the object</typeparam>
+            /// <param name="message">The custom error message</param>
             /// <param name="paramName">The name of the parameter (automatically captured)</param>
             /// <returns>The non-null object</returns>
             /// <exception cref="ArgumentNullException">Thrown when the object is null</exception>
@@ -55,27 +56,19 @@ namespace Eventualist.Extensions.Objects
             /// text.ThrowIfNull(); // Throws if text is null
             /// </code>
             /// </example>
-            public T ThrowIfNull<T>([CallerArgumentExpression("o")] string? paramName = null) where T : class
-            {
-                ArgumentNullException.ThrowIfNull(o, paramName);
-                return o as T;
-            }
-
-            /// <summary>
-            /// Throws an ArgumentNullException with a custom message if the object is null
-            /// </summary>
-            /// <typeparam name="T">The type of the object</typeparam>
-            /// <param name="message">The custom error message</param>
-            /// <param name="paramName">The name of the parameter (automatically captured)</param>
-            /// <returns>The non-null object</returns>
-            /// <exception cref="ArgumentNullException">Thrown when the object is null</exception>
-            public T ThrowIfNull<T>(string message,
+            public T ThrowIfNull<T>(string? message = null,
                 [CallerArgumentExpression("o")] string? paramName = null) where T : class
             {
                 if (o is null)
                 {
+                    if (message is null)
+                    {
+                        ArgumentNullException.ThrowIfNull(o, paramName);
+                    }
+
                     throw new ArgumentNullException(paramName, message);
                 }
+
                 return o as T;
             }
         }

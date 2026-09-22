@@ -11,7 +11,7 @@ namespace Eventualist.Extensions.Booleans
         {
 
             /// <summary>
-            /// Add a negation to the keyword, if the variable is false
+            /// Prefixes the keyword with a negation when the value is false
             /// </summary>
             /// <param name="keyword">The keyword to be negated</param>
             /// <param name="negation">The negation to be used</param>
@@ -23,7 +23,7 @@ namespace Eventualist.Extensions.Booleans
             }
 
             /// <summary>
-            /// Transforms variable to a confirmation or a negation depending on its value
+            /// Returns a confirmation or negation string depending on the value
             /// </summary>
             /// <param name="yesString">The confirmation</param>
             /// <param name="noString">The negation</param>
@@ -41,7 +41,7 @@ namespace Eventualist.Extensions.Booleans
             
 
             /// <summary>
-            /// Add a negation to the keyword, if the nullable variable is false or null
+            /// Prefixes the keyword with a negation when the value is false, or with the null text when it is null
             /// </summary>
             /// <param name="keyword">The keyword to be negated</param>
             /// <param name="negation">The negation to be used</param>
@@ -59,7 +59,7 @@ namespace Eventualist.Extensions.Booleans
 
 
             /// <summary>
-            /// Transforms nullable variable to a confirmation, negation, or unknown value
+            /// Returns a confirmation, negation, or null-value string depending on the nullable value
             /// </summary>
             /// <param name="yesString">The confirmation</param>
             /// <param name="noString">The negation</param>
@@ -75,10 +75,10 @@ namespace Eventualist.Extensions.Booleans
             }
 
             /// <summary>
-            /// Converts a boolean to its string representation with a specified case
+            /// Converts the nullable boolean to a lowercase or uppercase string representation
             /// </summary>
             /// <param name="uppercase">Whether to use uppercase</param>
-            /// <returns>String representation of the boolean</returns>
+            /// <returns>The lowercase or uppercase string representation; an empty string when the value is null</returns>
             public string ToString(bool uppercase = false)
             {
                 string result = variable.ToString().ToLowerInvariant();

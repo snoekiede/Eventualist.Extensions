@@ -44,7 +44,6 @@ namespace Eventualist.Extensions.Tests.Unit.Strings
         [Fact]
         public void TestShowIfNoneWithNullString()
         {
-            string? testString = null;
             var processed = ((string)null).ShowIfNone("Default");
             Assert.Equal("Default", processed);
         }

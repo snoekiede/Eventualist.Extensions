@@ -102,7 +102,7 @@ namespace Eventualist.Extensions.Numerics
 
                 // Special cases for 11, 12, 13
                 int lastTwoDigits = number % 100;
-                if (lastTwoDigits >= 11 && lastTwoDigits <= 13)
+                if (lastTwoDigits is >= 11 and <= 13)
                 {
                     return $"{number}th";
                 }

@@ -110,7 +110,7 @@ namespace Eventualist.Extensions.Functions
         {
 
             /// <summary>
-            /// Creates a memoized version of a function with four parameters
+            /// Creates a memoized version of a function with three parameters
             /// </summary>
             /// <returns>A memoized version of the function</returns>
             /// <exception cref="ArgumentNullException">Thrown when function is null</exception>

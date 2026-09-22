@@ -36,13 +36,13 @@ namespace Eventualist.Extensions.Collections
             }
 
             /// <summary>
-            /// Creates an ordered string with elements separated by the specified separator
+            /// Creates a string containing the elements ordered by a key and separated by the specified separator
             /// </summary>
             /// <typeparam name="TKey">The type of the sorting key</typeparam>
             /// <param name="keySelector">The selector used for the key</param>
             /// <param name="separator">The separator to use between elements</param>
             /// <param name="elementStringSelector">Optional function to convert each element to string</param>
-            /// <returns>An ordered string of collection elements</returns>
+            /// <returns>A string containing the ordered collection elements</returns>
             /// <exception cref="ArgumentNullException">Thrown when collection or keySelector is null</exception>
             public string CreateOrderedString<TKey>(
                 Func<T, TKey> keySelector,
@@ -63,10 +63,10 @@ namespace Eventualist.Extensions.Collections
             }
 
             /// <summary>
-            /// Divides a collection into groups of specified size
+            /// Divides a collection into groups of the specified maximum size
             /// </summary>
             /// <param name="groupSize">The maximum size of each group</param>
-            /// <returns>A collection of collection groups</returns>
+            /// <returns>An enumerable of groups, each containing at most <paramref name="groupSize"/> elements</returns>
             /// <exception cref="ArgumentNullException">Thrown when collection is null</exception>
             /// <exception cref="ArgumentOutOfRangeException">Thrown when groupSize is less than 1</exception>
             [Obsolete("This method is obsolete. Use the built-in Chunk method available in .NET 6 and later.")]
@@ -89,9 +89,9 @@ namespace Eventualist.Extensions.Collections
             }
 
             /// <summary>
-            /// Filters out null values from a collection
+            /// Filters null values out of a collection
             /// </summary>
-            /// <returns>A collection with all null values removed</returns>
+            /// <returns>An enumerable containing the non-null elements from the collection</returns>
             /// <exception cref="ArgumentNullException">Thrown when collection is null</exception>
             /// <example>
             /// <code>
@@ -124,7 +124,7 @@ namespace Eventualist.Extensions.Collections
                 ArgumentNullException.ThrowIfNull(items);
 
                 var collectionSet = collection.ToHashSet();
-                return items.All(item => collectionSet.Contains(item));
+                return items.All(collectionSet.Contains);
             }
         }
     }

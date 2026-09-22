@@ -4,10 +4,17 @@ using System.Reflection;
 
 namespace Eventualist.Extensions.Attributes
 {
+    /// <summary>
+    /// Validates that a DateTime property occurs before another DateTime property on the same object.
+    /// </summary>
+    /// <param name="otherProperty">The name of the property that must occur later</param>
     [AttributeUsage(AttributeTargets.Property)]
     public class MustComeBeforeAttribute(string otherProperty)
         : ValidationAttribute($"Must occur before {otherProperty}")
     {
+        /// <summary>
+        /// Gets the name of the property that must occur later.
+        /// </summary>
         public string OtherProperty { get; } = otherProperty ?? throw new ArgumentNullException(nameof(otherProperty));
 
         public override bool RequiresValidationContext => true;

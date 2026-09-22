@@ -1,42 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
-	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Nullable>annotations</Nullable>
-	  <LangVersion>14</LangVersion>
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Nullable>annotations</Nullable>
+		<LangVersion>14</LangVersion>
 
-	<Version>5.0.2.0</Version>
+		<Version>5.0.2.0</Version>
 
-	<RunPostBuildEvent>Always</RunPostBuildEvent>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
 
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
-	<Description>Lightweight extension methods for booleans, strings and collections. Includes:
-- Bool: AddNot (conditionally prefixes a string), ToYesOrNo (converts bool to "yes"/"no").
-- Collection: IsEmpty, IsNotEmpty, and Chunk (splits a collection into sublists with a maximum length).
-- Memoize: simple caching for Func delegates (supports up to two arguments).
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>
+			Lightweight extension methods for booleans, strings and collections. Includes:
+			- Bool: AddNot (conditionally prefixes a string), ToYesOrNo (converts bool to "yes"/"no").
+			- Collection: IsEmpty, IsNotEmpty, and Chunk (splits a collection into sublists with a maximum length).
+			- Memoize: simple caching for Func delegates (supports up to two arguments).
 
-Targeted for .NET 8.0, .NET 9.0, and .NET 10.0. MIT licensed.</Description>
-    
-    <Authors>Iede Snoek (info@esoxsolutions.nl)</Authors>
-    
-    <Company>Esox Solutions</Company>
-    
-    <Copyright>(c) 2025 Esox Solutions</Copyright>
-    
-    <SignAssembly>True</SignAssembly>
-    
-    <AssemblyOriginatorKeyFile>C:\temp\eventualist_extensions.snk</AssemblyOriginatorKeyFile>
-    
-    <RepositoryUrl>https://github.com/snoekiede/Eventualist.Extensions</RepositoryUrl>
-    
-    <PackageProjectUrl>https://github.com/snoekiede/Eventualist.Extensions</PackageProjectUrl>
-  </PropertyGroup>
+			Targeted for .NET 8.0, .NET 9.0, and .NET 10.0. MIT licensed.
+		</Description>
 
-  <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
+		<Authors>Iede Snoek (info@esoxsolutions.nl)</Authors>
+
+		<Company>Esox Solutions</Company>
+
+		<Copyright>(c) 2025 Esox Solutions</Copyright>
+
+		<SignAssembly>True</SignAssembly>
+
+		<AssemblyOriginatorKeyFile>C:\temp\eventualist_extensions.snk</AssemblyOriginatorKeyFile>
+
+		<RepositoryUrl>https://github.com/snoekiede/Eventualist.Extensions</RepositoryUrl>
+
+		<PackageProjectUrl>https://github.com/snoekiede/Eventualist.Extensions</PackageProjectUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 </Project>

@@ -16,7 +16,7 @@ namespace Eventualist.Extensions.Strings
         extension(string text)
         {
             /// <summary>
-            /// Gets the MIME type for a file extension
+            /// Gets the MIME type for a file extension string
             /// </summary>
             /// <returns>The MIME type or "application/octet-stream" if unknown</returns>
             public string ConvertToMimeType()
@@ -53,9 +53,9 @@ namespace Eventualist.Extensions.Strings
             }
 
             /// <summary>
-            /// Convert a string to sentence case
+            /// Inserts spaces at camel-case boundaries and lowercases the character after each boundary
             /// </summary>
-            /// <returns>transformed string</returns>
+            /// <returns>The string with camel-case boundaries separated by spaces</returns>
             public string ToSentenceCase()
             {
                 return Regex.Replace(text, "[a-z][A-Z]", m => m.Value[0] + " " + char.ToLower(m.Value[1]));
@@ -75,7 +75,7 @@ namespace Eventualist.Extensions.Strings
             }
 
             /// <summary>
-            /// Checks if a filename has an allowed image extension
+            /// Determines whether a file name has an allowed image extension
             /// </summary>
             /// <param name="additionalExtensions">Optional additional allowed extensions</param>
             /// <returns>True if the extension is allowed, otherwise false</returns>
@@ -105,7 +105,7 @@ namespace Eventualist.Extensions.Strings
             }
 
             /// <summary>
-            /// Parses a date string in yyyy/MM/dd format from a date picker
+            /// Parses a date-picker string in yyyy/MM/dd format
             /// </summary>
             /// <param name="culture">Optional culture info (defaults to current culture)</param>
             /// <returns>A DateTime if successful, null otherwise</returns>
@@ -145,7 +145,7 @@ namespace Eventualist.Extensions.Strings
             }
 
             /// <summary>
-            /// Converts a string to title case and separates concatenated words
+            /// Converts a string to title case and handles underscore- and camel-case text
             /// </summary>
             /// <param name="culture">Optional culture (defaults to current culture)</param>
             /// <returns>The transformed text in title case</returns>
@@ -209,9 +209,9 @@ namespace Eventualist.Extensions.Strings
             }
 
             /// <summary>
-            /// Abbreviates a string by truncating to the specified maximum length at word boundaries
+            /// Abbreviates a string at a word boundary and appends a truncation symbol
             /// </summary>
-            /// <param name="maxLength">The maximum length</param>
+            /// <param name="maxLength">The maximum length of the content before the abbreviation symbol</param>
             /// <param name="abbreviationSymbol">The symbol to append indicating truncation</param>
             /// <returns>The abbreviated string</returns>
             public string Abbreviate(int maxLength = 40, string abbreviationSymbol = "...")
@@ -296,11 +296,11 @@ namespace Eventualist.Extensions.Strings
             }
 
             /// <summary>
-            /// Truncates a string to the specified maximum length
+            /// Truncates a string and appends a suffix when the string exceeds the specified length
             /// </summary>
-            /// <param name="maxLength">The maximum target length</param>
+            /// <param name="maxLength">The maximum length used to calculate the truncated result</param>
             /// <param name="suffix">The suffix to append when truncated</param>
-            /// <returns>The truncated string</returns>
+            /// <returns>The original string when it fits; otherwise, the truncated string with the suffix</returns>
             public string Truncate(int maxLength, string suffix = "...")
             {
                 if (string.IsNullOrEmpty(text) || text.Length <= maxLength)
@@ -331,7 +331,7 @@ namespace Eventualist.Extensions.Strings
             }
 
             /// <summary>
-            /// Removes all HTML tags from a string
+            /// Removes text that matches HTML tags from a string
             /// </summary>
             /// <returns>Plain text without HTML tags</returns>
             public string StripHtml()
